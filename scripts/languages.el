@@ -16,17 +16,11 @@
 (use-package company
   :ensure t)
 
-;; helm configurations.
-(use-package helm
+;; ------------------------------- Emacs Lisp -----------------------------
+(use-package highlight-defined
   :ensure t)
-(require 'helm-config)
-(helm-mode 1)
-
-; Use helm-M-x
-(global-set-key (kbd "M-x") 'helm-M-x)
-; Use helm C-x C-f
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(helm-autoresize-mode t)
+(add-hook 'emacs-lisp-mode-hook 'highlight-defined-mode)
+;; ------------------------------------------------------------------------
 
 ;; -------------------------------- Rust ----------------------------------
 ;; Configuration for rust.
@@ -62,3 +56,12 @@
 	  (lambda () (local-set-key (kbd "C-c C-f") #'clang-format-buffer)))
 ;; ------------------------------------------------------------------------
 
+;; ------------------------------ Typescript ------------------------------
+;; ------------------------------------------------------------------------
+
+;; --------------------------------- Go -----------------------------------
+(use-package go-mode
+  :ensure t)
+(add-to-list 'exec-path "$GOPATH/bin")
+(add-hook 'before-save-hook 'gofmt-before-save)
+;; ------------------------------------------------------------------------

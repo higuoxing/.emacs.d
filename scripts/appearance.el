@@ -34,10 +34,16 @@
   :ensure t)
 
 ;; Use doom-modeline.
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode))
-(setq doom-modeline-icon (display-graphic-p))
+;(use-package doom-modeline
+;  :ensure t
+;  :hook (after-init . doom-modeline-mode))
+;(setq doom-modeline-icon (display-graphic-p))
+
+;; Spaceline
+(use-package spaceline-config
+  :config
+  (setq powerline-default-separator 'wave))
+(spaceline-spacemacs-theme)
 
 ;; Use nyan-mode to display nyan-cat.
 (use-package nyan-mode

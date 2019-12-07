@@ -24,8 +24,5 @@
 ;; Load "window.el"
 (load "window")
 
-;; Load "search.el"
-(load "search")
-
 ;; Load "terminal.el"
 (load "terminal")
