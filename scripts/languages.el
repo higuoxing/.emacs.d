@@ -50,13 +50,28 @@
 ;; ------------------------------------------------------------------------
 
 ;; ------------------------------- C/CC -----------------------------------
+(use-package ccls)
+(setq ccls-executable "ccls")
 (use-package clang-format
   :ensure t)
+
+(defun clang-format-region-or-buffer ()
+  "Use `clang-format` to format buffer or region"
+  (interactive)
+  (if (use-region-p)
+      (clang-format-region (region-beginning) (region-end))
+    (clang-format-buffer)))
+
 (add-hook 'c-mode-common-hook
-	  (lambda () (local-set-key (kbd "C-c C-f") #'clang-format-buffer)))
+	  (lambda ()
+	    ;; Map `C-c C-f` to `clang-format`
+	    ;; If we have a selected region, then we format that region
+	    ;; Or we format the buffer.
+	    (local-set-key (kbd "C-c C-f") #'clang-format-region-or-buffer)))
 ;; ------------------------------------------------------------------------
 
 ;; ------------------------------ Typescript ------------------------------
+;; TODO
 ;; ------------------------------------------------------------------------
 
 ;; --------------------------------- Go -----------------------------------

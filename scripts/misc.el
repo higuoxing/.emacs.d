@@ -47,3 +47,10 @@
 (global-set-key (kbd "C-s") #'isearch-forward-regexp)
 (global-set-key (kbd "C-r") #'isearch-backward-regexp)
 ;; --------------------------------------------------------------------------------------------
+
+;; Test
+;;(defun my-region-is-active() "Fuck you"
+;;       (interactive)
+;;       (if (use-region-p)
+;;	   (message "Fuck you")
+;;	 (message "I will not fuck you")))
