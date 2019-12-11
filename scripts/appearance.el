@@ -7,7 +7,7 @@
 (load-theme 'dracula t)
 
 ;; Disable tool bar.
-(tool-bar-mode -1)
+(tool-bar-mode 0)
 
 ;; Display line number.
 (global-display-line-numbers-mode)
@@ -16,12 +16,12 @@
 (if (display-graphic-p)
     (progn
       (setq initial-frame-alist
-	    '((width . 100)
+	    '((width . 200)
 	      (height . 100)
 	      (right . 50)
 	      (font . "Hack 12")))
       (setq default-frame-alist
-	    '((width . 100)
+	    '((width . 200)
 	      (height . 100)
 	      (right . 50)
 	      (font . "Hack 12"))))

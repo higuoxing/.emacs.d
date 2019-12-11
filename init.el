@@ -1,13 +1,7 @@
-(package-initialize)
-(require 'package)
-
-;; Setup packages' archives.
-(setq package-archives '(("MELPA" . "http://melpa.org/packages/")
-			 ("GNU ELPA" . "http://elpa.gnu.org/packages/")
-			 ("ORG MODE" . "http://orgmode.org/elpa/")))
-
 ;; Add my custom scripts
 (add-to-list 'load-path (concat user-emacs-directory "/scripts/"))
+
+(load "packages")
 
 ;; Load "appearance.el"
 (load "appearance")

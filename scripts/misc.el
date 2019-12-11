@@ -1,4 +1,4 @@
-;; Set proxy of my emacs.
+;; Set proxy of my ema
 (setq url-proxy-services '(("no_proxy" . "")
 			   ("http_proxy" . "127.0.0.1:8118")
 			   ("https_proxy" . "127.0.0.1:8118")))
@@ -34,6 +34,9 @@
 ;; Use `helm-C-x-C-f` to find files.
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
 
+;; Use `helm-C-x-C-b` to list buffers.
+(global-set-key (kbd "C-x C-b") #'helm-buffers-list)
+
 ;; --------------------------------------------------------------------------------------------
 
 ;; ---------------------------------------- Keymaps -------------------------------------------
@@ -47,10 +50,3 @@
 (global-set-key (kbd "C-s") #'isearch-forward-regexp)
 (global-set-key (kbd "C-r") #'isearch-backward-regexp)
 ;; --------------------------------------------------------------------------------------------
-
-;; Test
-;;(defun my-region-is-active() "Fuck you"
-;;       (interactive)
-;;       (if (use-region-p)
-;;	   (message "Fuck you")
-;;	 (message "I will not fuck you")))
