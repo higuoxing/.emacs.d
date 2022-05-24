@@ -1,0 +1,351 @@
+#+title: @higuoxing's Emacs configuration
+#+property: header-args :emacs-lisp :tangle ~/.emacs.d/init.el
+
+* Misc
+
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold 100000000) ;; Prevent GC?
+  (setq inhibit-startup-message t)   ;; Disable the welcome message.
+  (scroll-bar-mode -1)               ;; Disable visible scrollbar.
+  (tool-bar-mode -1)                 ;; Disable tooltips.
+  (set-fringe-mode 0)                ;; Give some breathing room.
+  (setq visible-bell t)              ;; Set up the visible bell.
+  ;; (set-face-attribute 'default nil :font "Fira Code" :height 130)
+  (set-face-font 'default "Fira Code 13")
+  (setq auto-window-vscroll nil)     ;; Disable auto window scroll
+  ;; Delete the selected text first before editing.
+  (delete-selection-mode 1)
+  ;; Don’t compact font caches during GC.
+  (setq inhibit-compacting-font-caches t)
+
+  ;; Smooth Scrolling: https://www.emacswiki.org/emacs/SmoothScrolling
+  (setq scroll-conservatively 10000
+	scroll-step 1)
+
+  ;; Display the line numbers.
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+
+  ;; Disable line numbers for some modes.
+  (dolist (mode '(org-mode-hook
+		  term-mode-hook
+		  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+
+* Package Manager Configuration
+
+#+begin_src emacs-lisp
+  ;; Initialize package sources
+  (require 'package)
+  (setq package-archives
+	'(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+	  ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+	  ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+  (package-initialize)
+  (unless package-archive-contents
+    (package-refresh-contents))
+
+  ;; Initialize use-package on non-linux platforms
+  (unless (package-installed-p 'use-package)
+    (package-install 'use-package))
+
+  (require 'use-package)
+  (setq use-package-always-ensure t)
+  ;; Keep init.el clean.
+  (setq custom-file (concat user-emacs-directory "/custom.el"))
+#+end_src
+
+* Keep Directory Clean
+
+#+begin_src emacs-lisp
+  ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
+  ;; reliably, set `user-emacs-directory` before loading `no-littering`.
+  ;; (setq user-emacs-directory "~/.cache/emacs")
+  (use-package no-littering)
+  ;; Store all backup and autosave files in the tmp dir
+  ;; (setq backup-directory-alist
+  ;;  `((".*" . ,temporary-file-directory)))
+  ;; no-littering doesn't set this by default so we must place
+  ;; auto save files in the same path as it uses for sessions.
+  (setq auto-save-file-name-transforms
+	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+#+end_src
+
+* Basic UI Configuration
+
+#+begin_src emacs-lisp
+  (use-package all-the-icons) ;; Required by doom-modeline
+  (use-package doom-modeline
+    :init
+    (doom-modeline-mode 1)
+    :custom
+    ((doom-modeline-height 15)
+     (doom-modeline-vcs-max-length 12)
+     (setq doom-modeline-lsp t)))
+
+  (use-package fira-code-mode
+    :custom
+    (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x" ":"))
+    :hook prog-mode)
+
+  (use-package doom-themes
+    :config
+    (setq doom-themes-enable-bold t)
+    (setq doom-themes-enable-italic t)
+    (load-theme 'doom-dracula t))
+
+  (use-package page-break-lines)
+  (use-package dashboard
+    :config
+    (dashboard-setup-startup-hook)
+    (setq dashboard-startup-banner 'logo)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-center-content t)
+    (setq dashboard-items '((recents  . 5)
+			    (projects . 3)
+			    (agenda . 4)))
+    ;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+    (setq inhibit-startup-message t))
+
+  (use-package rainbow-delimiters
+    :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+
+* Key Bindings
+
+#+begin_src emacs-lisp
+  ;; Make ESC quit prompts.
+  (global-set-key (kbd "<esc>") 'keyboard-escape-quit)
+  ;; Magic key.
+  (define-prefix-command 'magic-key)
+  (global-set-key (kbd "M-m") 'magic-key)
+
+  ;; Disabe and remap some Emacs's default keybinding.
+  (global-unset-key (kbd "C-v"))  ;; scroll-up-command
+  (global-unset-key (kbd "M-v"))  ;; scroll-down-command
+  (global-unset-key (kbd "C-t"))  ;; switch char
+  (global-unset-key (kbd "C-j"))  ;; (electric-newline-and-maybe-indent)
+  (global-set-key (kbd "M-n") 'scroll-up)
+  (global-set-key (kbd "M-p") 'scroll-down)
+
+  ;; Use general to manage key bindings.
+  (use-package general
+    :config
+    (general-create-definer my/leader-key
+      :prefix "M-m"))
+
+  ;; Split window, keep consistent with my tmux configuration.
+  (my/leader-key
+    "|" 'split-window-right
+    "-" 'split-window-below)
+#+end_src
+
+* Perfect Emacs
+
+** helm, swiper, ivy, which-key, helpful, windmove
+
+#+begin_src emacs-lisp
+  ;; helm-mini depends on helm.
+  (use-package helm :diminish)
+
+  (use-package counsel
+    :diminish
+    :bind (("M-x" . counsel-M-x)
+	   ("C-c f" . counsel-fzf)
+	   ("C-x C-f" . counsel-find-file)
+	   :map counsel-find-file-map
+	   ("C-h" . counsel-up-directory)
+	   :map minibuffer-local-map
+	   ("C-r" . counsel-minibuffer-history))
+    :config
+    (setq ivy-initial-inputs-alist nil)) ;; Don't start search with '^'
+
+  (use-package swiper)
+  (use-package ivy
+    :after swiper
+    :diminish
+    :bind (("C-s" . swiper-isearch)
+	   ("C-r" . swiper-isearch-backward)
+	   :map ivy-minibuffer-map
+	   ("TAB" . ivy-alt-done)
+	   ("C-l" . ivy-alt-done)
+	   ("C-j" . ivy-next-line)
+	   ("C-k" . ivy-previous-line)
+	   :map ivy-switch-buffer-map
+	   ("C-k" . ivy-previous-line)
+	   ("C-l" . ivy-done)
+	   ("C-d" . ivy-switch-buffer-kill)
+	   :map ivy-reverse-i-search-map
+	   ("C-k" . ivy-previous-line)
+	   ("C-d" . ivy-reverse-i-search-kill))
+    :config (ivy-mode 1))
+
+  (use-package which-key
+    :init (which-key-mode)
+    :diminish which-key-mode
+    :config (setq which-key-idle-delay 0.1))
+
+  (use-package ivy-rich
+    :after ivy
+    :init (ivy-rich-mode 1))
+
+  (use-package helpful
+    :commands (helpful-callable helpful-variable helpful-command helpful-key)
+    :custom
+    (counsel-describe-function-function #'helpful-callable)
+    (counsel-describe-variable-function #'helpful-variable)
+    :bind
+    ([remap describe-function] . counsel-describe-function)
+    ([remap describe-command] . helpful-command)
+    ([remap describe-variable] . counsel-describe-variable)
+    ([remap describe-key] . helpful-key))
+
+  ;; I don't need to load hydra ASAP.
+  (use-package hydra)
+  (defhydra hydra-text-scale (:timeout 4) "Scale text"
+    ("k" text-scale-increase "in")
+    ("j" text-scale-decrease "out")
+    ("f" nil "finish" :exit t))
+
+  (my/leader-key
+    "t" '(:ignore t :which-key "Text")
+    "b" '(:ignore b :which-key "Buffer")
+    "p" '(:ignore p :which-key "Project"))
+
+  (my/leader-key
+    "ts" '(hydra-text-scale/body :which-key "Scale text"))
+
+  (my/leader-key
+    "bb" '(helm-mini :which-key "Switch buffer"))
+
+  ;; Navigate between window.
+  (use-package windmove
+    :config
+    (my/leader-key
+      "h" '(windmove-left :which-key "Window move left")
+      "j" '(windmove-down :which-key "Window move down")
+      "k" '(windmove-up   :which-key "Window move up")
+      "l" '(windmove-right :which-key "Window move right")))
+#+end_src
+
+* Development Tools
+
+** projectile, fzf, ag, magit, yasnippet
+
+#+begin_src emacs-lisp
+  (use-package fzf)
+  (use-package ag)
+  (use-package magit
+    :defer 5)
+  (use-package projectile
+    :after ag
+    :init (projectile-mode 1)
+    :config
+    (setq projectile-project-search-path '("~/x/gh/"))
+    (my/leader-key
+      "pf" '(fzf-projectile :which-key "Find file")
+      "pd" '(projectile-find-dir :which-key "Find dir")
+      "pg" '(magit :which-key "Git")
+      "ps" '(projectile-ag :which-key "Search in REGEXP")
+      "pp" '(projectile-switch-project :which-key "Switch project")
+      "pc" '(projectile-compile-project :which-key "Compile project")
+      "pt" '(projectile-test-project :which-key "Test project")
+      "pe" '(projectile-run-eshell :which-key "Run eshell")))
+
+  (use-package yasnippet
+    :init
+    (yas-global-mode 1)
+    :config
+    (setq yas-snippet-dirs
+	  '("~/.emacs.d/snippets/")))
+#+end_src
+
+** Languages' Modes
+
+*** LSP Support
+
+#+begin_src emacs-lisp
+  (use-package company)
+  (use-package lsp-mode
+    :init
+    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    (setq lsp-keymap-prefix "M-m g")
+    :hook
+    ((python-mode . lsp) ;; pip install python-lsp-server --user
+     (c-mode . lsp)
+     (c++-mode . lsp)
+     (lsp-mode . lsp-enable-which-key-integration))
+    :commands
+    lsp
+    :config
+    ;; "M-m g g b": Jump back in lsp-mode.
+    (define-key lsp-command-map "gb" 'xref-pop-marker-stack))
+
+  ;; optionally
+  (use-package lsp-ui
+    :commands
+    lsp-ui-mode)
+  ;; if you are ivy user
+  (use-package lsp-ivy
+    :commands
+    lsp-ivy-workspace-symbol)
+  ;; (use-package lsp-treemacs
+  ;;  :commands
+  ;;  lsp-treemacs-errors-list)
+
+  ;; optionally if you want to use debugger
+  ;; (use-package dap-mode)
+  ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+#+end_src
+
+*** Rust
+
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :config
+    (setq rust-format-on-save t)
+    (add-hook 'rust-mode-hook
+	      (lambda () (prettify-symbols-mode))))
+#+end_src
+
+*** Ocaml
+
+#+begin_src emacs-lisp
+#+end_src
+
+* Org Mode
+
+** Automatically tangle my configuration files
+
+#+begin_src emacs-lisp
+  ;; Automatically tangle my configuration file.
+  (defun my/org-babel-tangle-config()
+    (when (string-equal (buffer-file-name) (expand-file-name "~/.emacs.d/emacs.org"))
+      ;; Dynamic scoping to the rescue
+      (let ((org-confirm-babel-evaluate nil))
+	(org-babel-tangle))))
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages '((emacs-lisp . t)
+				 (python . t)))
+    (setq org-confirm-babel-evaluate nil)
+
+    (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
+				  "xelatex -interaction nonstopmode %f"))
+
+    (require 'org-tempo)
+    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+    (add-to-list 'org-structure-template-alist '("py" . "src python")))
+#+end_src
+
+* Debugging
+
+#+begin_src emacs-lisp
+  ;; See: https://github.com/jschaf/esup/issues/54#issuecomment-651247749
+  (setq esup-depth 0)
+#+end_src
