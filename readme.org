@@ -30,7 +30,8 @@
   ;; Disable line numbers for some modes.
   (dolist (mode '(org-mode-hook
 		  term-mode-hook
-		  eshell-mode-hook))
+		  eshell-mode-hook
+		  neotree-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
 
@@ -154,7 +155,7 @@
 
 * Perfect Emacs
 
-** helm, swiper, ivy, which-key, helpful, windmove
+** helm, swiper, ivy, which-key, helpful, windmove, neotree
 
 #+begin_src emacs-lisp
   ;; helm-mini depends on helm.
@@ -238,11 +239,30 @@
       "j" '(windmove-down :which-key "Window move down")
       "k" '(windmove-up   :which-key "Window move up")
       "l" '(windmove-right :which-key "Window move right")))
+
+
+  (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+	  (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+	  (if (neo-global--window-exists-p)
+	      (progn
+		(neotree-dir project-dir)
+		(neotree-find file-name)))
+	(message "Could not find git project root."))))
+  (use-package neotree
+    :config
+    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (my/leader-key
+      "n" '(neotree-project-dir :which-key "Neotree toggle")))
 #+end_src
 
 * Development Tools
 
-** projectile, fzf, ag, magit, yasnippet
+** projectile, fzf, ag, magit
 
 #+begin_src emacs-lisp
   (use-package magit
@@ -260,11 +280,15 @@
       "pf" '(fzf-projectile :which-key "Find file")
       "pg" '(magit :which-key "Git")
       "ps" '(counsel-projectile-rg :which-key "Ripgrep")
-      "pp" '(counsel-switch-project :which-key "Switch project")
+      "pp" '(counsel-projectile-switch-project :which-key "Switch project")
       "pe" '(projectile-run-eshell :which-key "Run eshell")
       "pc" '(projectile-compile-project :which-key "Compile project")
       "pt" '(projectile-test-project :which-key "Test project")))
+#+end_src
 
+*** yasnippet
+
+#+begin_src emacs-lisp
   (use-package yasnippet
     :init
     (yas-global-mode 1)
@@ -298,10 +322,11 @@
   (use-package lsp-ui
     :commands
     lsp-ui-mode)
-  ;; if you are ivy user
+
   (use-package lsp-ivy
     :commands
     lsp-ivy-workspace-symbol)
+
   ;; (use-package lsp-treemacs
   ;;  :commands
   ;;  lsp-treemacs-errors-list)
