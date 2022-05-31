@@ -12,6 +12,7 @@
   (setq visible-bell t)              ;; Set up the visible bell.
   ;; (set-face-attribute 'default nil :font "Fira Code" :height 130)
   (set-face-font 'default "Fira Code 13")
+
   (setq auto-window-vscroll nil)     ;; Disable auto window scroll
   ;; Delete the selected text first before editing.
   (delete-selection-mode 1)
@@ -75,19 +76,28 @@
 * Basic UI Configuration
 
 #+begin_src emacs-lisp
-  (use-package all-the-icons) ;; Required by doom-modeline
+  (use-package all-the-icons
+    :if (display-graphic-p)) ;; Required by doom-modeline
   (use-package doom-modeline
     :init
     (doom-modeline-mode 1)
     :custom
     ((doom-modeline-height 15)
      (doom-modeline-vcs-max-length 12)
-     (setq doom-modeline-lsp t)))
+     (setq doom-modeline-lsp t)
+     ;; Whether display icons for buffer states. It respects `doom-modeline-icon'.
+     (setq doom-modeline-buffer-state-icon t)
+
+     ;; Whether display buffer modification icon. It respects `doom-modeline-icon'
+     ;; and `doom-modeline-buffer-state-icon'.
+     (setq doom-modeline-buffer-modification-icon t)))
 
   (use-package fira-code-mode
+    :if (display-graphic-p)
     :custom
     (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x" ":"))
-    :hook prog-mode)
+    :hook
+    prog-mode)
 
   (use-package doom-themes
     :config
@@ -102,6 +112,7 @@
     (setq dashboard-startup-banner 'logo)
     (setq dashboard-set-file-icons t)
     (setq dashboard-center-content t)
+    (setq dashboard-set-heading-icons t)
     (setq dashboard-items '((recents  . 5)
 			    (projects . 3)
 			    (agenda . 4)))
@@ -234,24 +245,25 @@
 ** projectile, fzf, ag, magit, yasnippet
 
 #+begin_src emacs-lisp
-  (use-package fzf)
-  (use-package ag)
   (use-package magit
     :defer 5)
-  (use-package projectile
-    :after ag
+  (use-package fzf)
+  (use-package rg)
+  (use-package projectile)
+
+  (use-package counsel-projectile
+    :after (rg)
     :init (projectile-mode 1)
     :config
-    (setq projectile-project-search-path '("~/x/gh/"))
     (my/leader-key
+      "pd" '(counsel-projectile-find-dir :which-key "Find dir")
       "pf" '(fzf-projectile :which-key "Find file")
-      "pd" '(projectile-find-dir :which-key "Find dir")
       "pg" '(magit :which-key "Git")
-      "ps" '(projectile-ag :which-key "Search in REGEXP")
-      "pp" '(projectile-switch-project :which-key "Switch project")
+      "ps" '(counsel-projectile-rg :which-key "Ripgrep")
+      "pp" '(counsel-switch-project :which-key "Switch project")
+      "pe" '(projectile-run-eshell :which-key "Run eshell")
       "pc" '(projectile-compile-project :which-key "Compile project")
-      "pt" '(projectile-test-project :which-key "Test project")
-      "pe" '(projectile-run-eshell :which-key "Run eshell")))
+      "pt" '(projectile-test-project :which-key "Test project")))
 
   (use-package yasnippet
     :init
@@ -334,6 +346,7 @@
      'org-babel-load-languages '((emacs-lisp . t)
 				 (python . t)))
     (setq org-confirm-babel-evaluate nil)
+    (setq org-startup-with-beamer-mode t)
 
     (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
 				  "xelatex -interaction nonstopmode %f"))
