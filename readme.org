@@ -273,7 +273,7 @@
 
   (use-package counsel-projectile
     :after (rg)
-    :init (projectile-mode 1)
+    :init (counsel-projectile-mode)
     :config
     (my/leader-key
       "pd" '(counsel-projectile-find-dir :which-key "Find dir")
