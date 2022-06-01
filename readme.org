@@ -278,7 +278,8 @@
 
 #+begin_src emacs-lisp
   (use-package magit
-    :defer 5)
+    :commands
+    magit-status)
   (use-package fzf)
   (use-package rg)
   (use-package projectile)
@@ -397,6 +398,9 @@
 
 #+begin_src emacs-lisp
   ;; See: https://github.com/jschaf/esup/issues/54#issuecomment-651247749
-  (use-package esup)
-  (setq esup-depth 0)
+  (use-package esup
+    :commands
+    esup
+    :config
+    (setq esup-depth 0))
 #+end_src
