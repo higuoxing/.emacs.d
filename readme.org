@@ -79,9 +79,16 @@
 #+begin_src emacs-lisp
   (use-package all-the-icons
     :if (display-graphic-p)) ;; Required by doom-modeline
+  (use-package nyan-mode
+    :init
+    (nyan-mode)
+    (nyan-start-animation)
+    :config
+    (setq nyan-wavy-trail t))
+
   (use-package doom-modeline
     :init
-    (doom-modeline-mode 1)
+    (doom-modeline-mode)
     :custom
     ((doom-modeline-height 15)
      (doom-modeline-vcs-max-length 12)
@@ -385,5 +392,6 @@
 
 #+begin_src emacs-lisp
   ;; See: https://github.com/jschaf/esup/issues/54#issuecomment-651247749
+  (use-package esup)
   (setq esup-depth 0)
 #+end_src
