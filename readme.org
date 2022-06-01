@@ -82,9 +82,12 @@
   (use-package nyan-mode
     :init
     (nyan-mode)
-    (nyan-start-animation)
     :config
-    (setq nyan-wavy-trail t))
+    (setq nyan-wavy-trail t)
+    (nyan-start-animation)
+    :hook
+    ;; Only enable it in prog mode.
+    prog-mode)
 
   (use-package doom-modeline
     :init
@@ -124,7 +127,6 @@
     (setq dashboard-items '((recents  . 5)
 			    (projects . 3)
 			    (agenda . 4)))
-    ;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
     (setq inhibit-startup-message t))
 
   (use-package rainbow-delimiters
@@ -165,9 +167,13 @@
 ** helm, swiper, ivy, which-key, helpful, windmove, neotree
 
 #+begin_src emacs-lisp
-  ;; helm-mini depends on helm.
-  (use-package helm :diminish)
+  (use-package all-the-icons-ivy-rich
+    :ensure t
+    :init (all-the-icons-ivy-rich-mode 1))
 
+  (use-package ivy-rich
+    :ensure t
+    :init (ivy-rich-mode 1))
   (use-package counsel
     :diminish
     :bind (("M-x" . counsel-M-x)
@@ -178,7 +184,9 @@
 	   :map minibuffer-local-map
 	   ("C-r" . counsel-minibuffer-history))
     :config
-    (setq ivy-initial-inputs-alist nil)) ;; Don't start search with '^'
+    (setq ivy-initial-inputs-alist nil) ;; Don't start search with '^'
+    (my/leader-key
+      "bb" '(counsel-switch-buffer :which-key "Switch Buffer")))
 
   (use-package swiper)
   (use-package ivy
@@ -234,9 +242,6 @@
 
   (my/leader-key
     "ts" '(hydra-text-scale/body :which-key "Scale text"))
-
-  (my/leader-key
-    "bb" '(helm-mini :which-key "Switch buffer"))
 
   ;; Navigate between window.
   (use-package windmove
