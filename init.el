@@ -4,8 +4,7 @@
 (tool-bar-mode -1)                 ;; Disable tooltips.
 (set-fringe-mode 0)                ;; Give some breathing room.
 (setq visible-bell t)              ;; Set up the visible bell.
-;; (set-face-attribute 'default nil :font "Fira Code" :height 130)
-(set-face-font 'default "Fira Code 13")
+(set-face-attribute 'default nil :font "Fira Code" :height 130)
 
 (setq auto-window-vscroll nil)     ;; Disable auto window scroll
 ;; Delete the selected text first before editing.
@@ -76,7 +75,7 @@
   (after-init . doom-modeline-mode)
   :custom
   ((setq doom-modeline-lsp t)
-   (setq inhibit-compacting-font-caches t)
+   ;; (setq inhibit-compacting-font-caches t) This has been set!
    ;; Whether display icons for buffer states. It respects `doom-modeline-icon'.
    (setq doom-modeline-buffer-state-icon t)
    (setq doom-modeline-persp-name t)
@@ -151,6 +150,11 @@
   "|" 'split-window-right
   "-" 'split-window-below)
 
+(my/leader-key
+  "t" '(:ignore t :which-key "Text")
+  "b" '(:ignore b :which-key "Buffer")
+  "p" '(:ignore p :which-key "Project"))
+
 (use-package all-the-icons-ivy-rich
   :ensure t
   :init (all-the-icons-ivy-rich-mode 1))
@@ -192,10 +196,21 @@
 	 ("C-d" . ivy-reverse-i-search-kill))
   :config (ivy-mode 1))
 
+(use-package ivy-xref
+  :init
+  ;; xref initialization is different in Emacs 27 - there are two different
+  ;; variables which can be set rather than just one
+  (when (>= emacs-major-version 27)
+    (setq xref-show-definitions-function #'ivy-xref-show-defs))
+  ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
+  ;; commands other than xref-find-definitions (e.g. project-find-regexp)
+  ;; as well
+  (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
+
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
-  :config (setq which-key-idle-delay 0.1))
+  :config (setq which-key-idle-delay 0.05))
 
 (use-package ivy-rich
   :after ivy
@@ -213,19 +228,14 @@
   ([remap describe-key] . helpful-key))
 
 ;; I don't need to load hydra ASAP.
-(use-package hydra)
-(defhydra hydra-text-scale (:timeout 4) "Scale text"
-  ("k" text-scale-increase "in")
-  ("j" text-scale-decrease "out")
-  ("f" nil "finish" :exit t))
-
-(my/leader-key
-  "t" '(:ignore t :which-key "Text")
-  "b" '(:ignore b :which-key "Buffer")
-  "p" '(:ignore p :which-key "Project"))
-
-(my/leader-key
-  "ts" '(hydra-text-scale/body :which-key "Scale text"))
+(use-package hydra
+  :config
+  (defhydra hydra-text-scale (:timeout 3) "Scale text"
+    ("k" text-scale-increase "in")
+    ("j" text-scale-decrease "out")
+    ("f" nil "finish" :exit t))
+  (my/leader-key
+    "ts" '(hydra-text-scale/body :which-key "Scale text")))
 
 ;; Navigate between window.
 (use-package windmove
@@ -237,7 +247,7 @@
     "l" '(windmove-right :which-key "Window move right")))
 
 
-(defun neotree-project-dir ()
+(defun my/neotree-project-dir ()
   "Open NeoTree using the git root."
   (interactive)
   (let ((project-dir (projectile-project-root))
@@ -253,7 +263,7 @@
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (my/leader-key
-    "n" '(neotree-project-dir :which-key "Neotree toggle")))
+    "n" '(my/neotree-project-dir :which-key "Neotree toggle")))
 
 (use-package magit
   :commands
