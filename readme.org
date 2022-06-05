@@ -1,4 +1,4 @@
-#+title: @higuoxing's Emacs configuration
+#+title: [[https://github.com/higuoxing][@higuoxing]]'s Emacs configuration
 #+auto_tangle: t
 #+property: header-args :emacs-lisp :tangle ~/.emacs.d/init.el
 
@@ -91,32 +91,35 @@
     prog-mode)
 
   (use-package doom-modeline
-    :init
-    (doom-modeline-mode)
+    :hook
+    (after-init . doom-modeline-mode)
     :custom
     ((setq doom-modeline-lsp t)
+     (setq inhibit-compacting-font-caches t)
      ;; Whether display icons for buffer states. It respects `doom-modeline-icon'.
      (setq doom-modeline-buffer-state-icon t)
-
-     (doom-modeline-bar-width 5)
-     (doom-modeline-icon t)
-     (doom-modeline-major-mode-icon t)
-     (doom-modeline-major-mode-color-icon t)
-     (doom-modeline-buffer-file-name-style 'truncate-upto-project)
-     (doom-modeline-buffer-state-icon t)
-     (doom-modeline-buffer-modification-icon t)
-     (doom-modeline-minor-modes nil)
-     (doom-modeline-enable-word-count nil)
-     (doom-modeline-buffer-encoding t)
-     (doom-modeline-indent-info t)
-     (doom-modeline-checker-simple-format t)
-     (doom-modeline-vcs-max-length 12)
-     (doom-modeline-env-version t)))
+     (setq doom-modeline-persp-name t)
+     (setq doom-modeline-display-default-persp-name t)
+     (setq doom-modeline-env-version t)
+     (setq doom-modeline-bar-width 5)
+     (setq doom-modeline-icon t)
+     (setq doom-modeline-major-mode-icon t)
+     (setq doom-modeline-major-mode-color-icon t)
+     (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+     (setq doom-modeline-buffer-state-icon t)
+     (setq doom-modeline-buffer-modification-icon t)
+     (setq doom-modeline-minor-modes nil)
+     (setq doom-modeline-enable-word-count nil)
+     (setq doom-modeline-buffer-encoding t)
+     (setq doom-modeline-indent-info t)
+     (setq doom-modeline-checker-simple-format t)
+     (setq doom-modeline-vcs-max-length 12)
+     (setq doom-modeline-env-version t)))
 
   (use-package fira-code-mode
     :if (display-graphic-p)
     :custom
-    (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x" ":"))
+    (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x" ":" "<>"))
     :hook
     prog-mode)
 
@@ -397,7 +400,9 @@
 
     (require 'org-tempo)
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-    (add-to-list 'org-structure-template-alist '("py" . "src python")))
+    (add-to-list 'org-structure-template-alist '("py" . "src python"))
+    (add-to-list 'org-structure-template-alist '("cpp" . "src cpp"))
+    (add-to-list 'org-structure-template-alist '("go" . "src go")))
 #+end_src
 
 * Debugging
