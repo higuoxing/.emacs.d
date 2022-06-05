@@ -75,15 +75,24 @@
   :init
   (doom-modeline-mode)
   :custom
-  ((doom-modeline-height 15)
-   (doom-modeline-vcs-max-length 12)
-   (setq doom-modeline-lsp t)
+  ((setq doom-modeline-lsp t)
    ;; Whether display icons for buffer states. It respects `doom-modeline-icon'.
    (setq doom-modeline-buffer-state-icon t)
 
-   ;; Whether display buffer modification icon. It respects `doom-modeline-icon'
-   ;; and `doom-modeline-buffer-state-icon'.
-   (setq doom-modeline-buffer-modification-icon t)))
+   (doom-modeline-bar-width 5)
+   (doom-modeline-icon t)
+   (doom-modeline-major-mode-icon t)
+   (doom-modeline-major-mode-color-icon t)
+   (doom-modeline-buffer-file-name-style 'truncate-upto-project)
+   (doom-modeline-buffer-state-icon t)
+   (doom-modeline-buffer-modification-icon t)
+   (doom-modeline-minor-modes nil)
+   (doom-modeline-enable-word-count nil)
+   (doom-modeline-buffer-encoding t)
+   (doom-modeline-indent-info t)
+   (doom-modeline-checker-simple-format t)
+   (doom-modeline-vcs-max-length 12)
+   (doom-modeline-env-version t)))
 
 (use-package fira-code-mode
   :if (display-graphic-p)
@@ -312,13 +321,9 @@
 
 
 
-;; Automatically tangle my configuration file.
-(defun my/org-babel-tangle-config()
-  (when (string-equal (buffer-file-name) (expand-file-name "~/.emacs.d/readme.org"))
-    ;; Dynamic scoping to the rescue
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'my/org-babel-tangle-config)))
+(use-package org-auto-tangle
+  :hook
+  (org-mode . org-auto-tangle-mode))
 
 (with-eval-after-load 'org
   (org-babel-do-load-languages
