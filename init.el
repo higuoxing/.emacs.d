@@ -1,4 +1,4 @@
-(setq gc-cons-threshold 100000000) ;; Prevent GC?
+(setq gc-cons-threshold 10000000)  ;; A large `gc-cons-threshold` may cause freezing and stuttering during long-term interactive use.
 (setq inhibit-startup-message t)   ;; Disable the welcome message.
 (scroll-bar-mode -1)               ;; Disable visible scrollbar.
 (tool-bar-mode -1)                 ;; Disable tooltips.
@@ -13,8 +13,21 @@
 (setq inhibit-compacting-font-caches t)
 
 ;; Smooth Scrolling: https://www.emacswiki.org/emacs/SmoothScrolling
+;; https://github.com/MatthewZMD/.emacs.d#smooth-scrolling
 (setq scroll-conservatively 10000)
+;; Vertical Scroll
 (setq scroll-step 1)
+(setq scroll-margin 1)
+(setq scroll-conservatively 101)
+(setq scroll-up-aggressively 0.01)
+(setq scroll-down-aggressively 0.01)
+(setq auto-window-vscroll nil)
+(setq fast-but-imprecise-scrolling nil)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-progressive-speed nil)
+;; Horizontal Scroll
+(setq hscroll-step 1)
+(setq hscroll-margin 1)
 
 ;; Display the line numbers.
 (column-number-mode)
@@ -75,7 +88,8 @@
   (after-init . doom-modeline-mode)
   :custom
   ((setq doom-modeline-lsp t)
-   ;; (setq inhibit-compacting-font-caches t) This has been set!
+   ;; Don't compact font caches during GC. Windows Laggy issue.
+   (setq inhibit-compacting-font-caches t)
    ;; Whether display icons for buffer states. It respects `doom-modeline-icon'.
    (setq doom-modeline-buffer-state-icon t)
    (setq doom-modeline-persp-name t)
@@ -264,6 +278,10 @@
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (my/leader-key
     "n" '(my/neotree-project-dir :which-key "Neotree toggle")))
+
+(use-package sudo-edit
+  :commands
+  (sudo-edit))
 
 (use-package magit
   :commands
