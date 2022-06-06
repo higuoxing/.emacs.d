@@ -20,8 +20,8 @@
   (setq inhibit-compacting-font-caches t)
 
   ;; Smooth Scrolling: https://www.emacswiki.org/emacs/SmoothScrolling
-  (setq scroll-conservatively 10000
-	scroll-step 1)
+  (setq scroll-conservatively 10000)
+  (setq scroll-step 1)
 
   ;; Display the line numbers.
   (column-number-mode)
@@ -270,9 +270,9 @@
   (use-package windmove
     :config
     (my/leader-key
-      "h" '(windmove-left :which-key "Window move left")
-      "j" '(windmove-down :which-key "Window move down")
-      "k" '(windmove-up   :which-key "Window move up")
+      "h" '(windmove-left  :which-key "Window move left")
+      "j" '(windmove-down  :which-key "Window move down")
+      "k" '(windmove-up    :which-key "Window move up")
       "l" '(windmove-right :which-key "Window move right")))
 
 
