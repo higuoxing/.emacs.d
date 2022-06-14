@@ -311,6 +311,20 @@
   (setq yas-snippet-dirs
 	'("~/.emacs.d/snippets/")))
 
+(use-package highlight-indent-guides
+  :if (display-graphic-p)
+  :diminish
+  ;; Enable manually if needed, it a severe bug which potentially core-dumps Emacs
+  ;; https://github.com/DarthFennec/highlight-indent-guides/issues/76
+  :commands (highlight-indent-guides-mode)
+  :hook
+  (prog-mode . highlight-indent-guides-mode)
+  :custom
+  (highlight-indent-guides-method 'character)
+  (highlight-indent-guides-responsive 'top)
+  (highlight-indent-guides-delay 0)
+  (highlight-indent-guides-auto-character-face-perc 7))
+
 (use-package company)
 (use-package lsp-mode
   :init
@@ -351,6 +365,12 @@
 	    (lambda () (prettify-symbols-mode))))
 
 
+
+(add-to-list 'load-path "~/.emacs.d/third_party/beancount-mode/")
+(require 'beancount)
+(add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
+(add-hook 'beancount-mode-hook
+	  (lambda () (setq-local electric-indent-chars nil)))
 
 (use-package org-auto-tangle
   :hook
