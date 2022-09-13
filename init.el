@@ -110,6 +110,7 @@
    (setq doom-modeline-vcs-max-length 12)
    (setq doom-modeline-env-version t)))
 
+;; If it doesn't work, please evaluate (fira-code-mode-install-fonts)
 (use-package fira-code-mode
   :if (display-graphic-p)
   :custom
