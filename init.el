@@ -4,7 +4,7 @@
 (tool-bar-mode -1)                 ;; Disable tooltips.
 (set-fringe-mode 0)                ;; Give some breathing room.
 (setq visible-bell t)              ;; Set up the visible bell.
-(set-face-attribute 'default nil :font "Fira Code" :height 130)
+(set-face-attribute 'default nil :font "Fira Code" :height 110)
 
 (setq auto-window-vscroll nil)     ;; Disable auto window scroll
 ;; Delete the selected text first before editing.
@@ -40,12 +40,19 @@
 		neotree-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;; Set native compiling logging level.
+(setq warning-minimum-level :error)
+
 ;; Initialize package sources
 (require 'package)
 (setq package-archives
-      '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-	("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-	("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+      '(;; ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+	;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+	;; ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+	("gnu" . "https://elpa.gnu.org/packages/")
+	("melpa" . "https://melpa.org/packages/")
+	("org" . "http://orgmode.org/elpa/")))
+
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
@@ -200,7 +207,7 @@
 	 :map ivy-minibuffer-map
 	 ("TAB" . ivy-alt-done)
 	 ("C-l" . ivy-alt-done)
-	 ;; I don't Vim-like key-bindings.
+	 ;; I don't need these two lines since I love emacs key-bindings.
 	 ;; ("C-j" . ivy-next-line)
 	 ;; ("C-k" . ivy-previous-line)
 	 :map ivy-switch-buffer-map
@@ -313,19 +320,20 @@
   (setq yas-snippet-dirs
 	'("~/.emacs.d/snippets/")))
 
-(use-package highlight-indent-guides
-  :if (display-graphic-p)
-  :diminish
-  ;; Enable manually if needed, it a severe bug which potentially core-dumps Emacs
-  ;; https://github.com/DarthFennec/highlight-indent-guides/issues/76
-  :commands (highlight-indent-guides-mode)
-  :hook
-  (prog-mode . highlight-indent-guides-mode)
-  :custom
-  (highlight-indent-guides-method 'character)
-  (highlight-indent-guides-responsive 'top)
-  (highlight-indent-guides-delay 0)
-  (highlight-indent-guides-auto-character-face-perc 7))
+;; Disable hightlight indent.
+;; (use-package highlight-indent-guides
+;;   :if (display-graphic-p)
+;;   :diminish
+;;   ;; Enable manually if needed, it a severe bug which potentially core-dumps Emacs
+;;   ;; https://github.com/DarthFennec/highlight-indent-guides/issues/76
+;;   :commands (highlight-indent-guides-mode)
+;;   :hook
+;;   (prog-mode . highlight-indent-guides-mode)
+;;   :custom
+;;   (highlight-indent-guides-method 'character)
+;;   (highlight-indent-guides-responsive 'top)
+;;   (highlight-indent-guides-delay 0)
+;;   (highlight-indent-guides-auto-character-face-perc 7))
 
 (use-package company)
 (use-package lsp-mode
@@ -336,6 +344,8 @@
   ((python-mode . lsp) ;; pip install python-lsp-server --user
    (c-mode . lsp)
    (c++-mode . lsp)
+   (go-mode . lsp)
+   (rust-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :commands
   lsp
@@ -366,7 +376,9 @@
   (add-hook 'rust-mode-hook
 	    (lambda () (prettify-symbols-mode))))
 
+(use-package go-mode)
 
+(use-package yaml-mode)
 
 (add-to-list 'load-path "~/.emacs.d/third_party/beancount-mode/")
 (require 'beancount)

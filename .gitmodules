@@ -1,3 +1,6 @@
 [submodule "third_party/beancount-mode"]
 	path = third_party/beancount-mode
 	url = git@github.com:beancount/beancount-mode.git
+[submodule "third_party/org-pivotal"]
+	path = third_party/org-pivotal
+	url = git@github.com:org-pivotal/org-pivotal.git
