@@ -401,6 +401,7 @@
      (c++-mode . lsp)
      (go-mode . lsp)
      (rust-mode . lsp)
+     (tuareg-mode . lsp) ;; opam install ocaml-lsp-server
      (lsp-mode . lsp-enable-which-key-integration))
     :commands
     lsp
@@ -446,6 +447,23 @@
 
 #+begin_src emacs-lisp
   (use-package yaml-mode)
+#+end_src
+
+*** OCaml
+#+begin_src emacs-lisp
+  (use-package tuareg
+    :config
+    (setq tuareg-match-patterns-aligned t))
+  (use-package ocamlformat) ;; opam install ocamlformat
+  (add-hook 'before-save-hook 'ocamlformat-before-save)
+  ;; Have a nice camel as the mode name
+  (add-hook 'tuareg-mode-hook
+	    (lambda() (setq tuareg-mode-name "🐫")))
+  ;; Pretty symbols.
+  (add-hook 'tuareg-mode-hook
+	    (lambda()
+	      (when (functionp 'prettify-symbols-mode)
+		(prettify-symbols-mode))))
 #+end_src
 
 * Accounting
