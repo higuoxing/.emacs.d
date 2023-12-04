@@ -1,4 +1,4 @@
-(setq gc-cons-threshold 10000000)  ;; A large `gc-cons-threshold` may cause freezing and stuttering during long-term interactive use.
+﻿(setq gc-cons-threshold 10000000)  ;; A large `gc-cons-threshold` may cause freezing and stuttering during long-term interactive use.
 (setq inhibit-startup-message t)   ;; Disable the welcome message.
 (scroll-bar-mode -1)               ;; Disable visible scrollbar.
 (tool-bar-mode -1)                 ;; Disable tooltips.
@@ -125,11 +125,15 @@
   :hook
   prog-mode)
 
-(use-package doom-themes
+;; (use-package doom-themes
+;;   :config
+;;   (setq doom-themes-enable-bold t)
+;;   (setq doom-themes-enable-italic t)
+;;   (load-theme 'doom-dracula t))
+(use-package kaolin-themes
   :config
-  (setq doom-themes-enable-bold t)
-  (setq doom-themes-enable-italic t)
-  (load-theme 'doom-dracula t))
+  (load-theme 'kaolin-galaxy t)
+  (kaolin-treemacs-theme))
 
 (use-package page-break-lines)
 (use-package dashboard
@@ -385,8 +389,8 @@
   :config
   (setq tuareg-match-patterns-aligned t))
 (use-package ocamlformat) ;; opam install ocamlformat
-(add-hook 'before-save-hook 'ocamlformat-before-save)
 ;; Have a nice camel as the mode name
+;; (add-hook 'before-save-hook 'ocamlformat-before-save)
 (add-hook 'tuareg-mode-hook
 	  (lambda() (setq tuareg-mode-name "🐫")))
 ;; Pretty symbols.
