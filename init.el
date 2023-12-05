@@ -309,7 +309,7 @@
   :config
   (my/leader-key
     "pd" '(counsel-projectile-find-dir :which-key "Find dir")
-    "pf" '(fzf-projectile :which-key "Find file")
+    "pf" '(projectile-find-file :which-key "Find file")
     "pg" '(magit :which-key "Git")
     "ps" '(counsel-projectile-rg :which-key "Ripgrep")
     "pp" '(counsel-projectile-switch-project :which-key "Switch project")
