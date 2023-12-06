@@ -399,12 +399,6 @@
 	    (when (functionp 'prettify-symbols-mode)
 	      (prettify-symbols-mode))))
 
-(add-to-list 'load-path "~/.emacs.d/third_party/beancount-mode/")
-(require 'beancount)
-(add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
-(add-hook 'beancount-mode-hook
-	  (lambda () (setq-local electric-indent-chars nil)))
-
 (use-package org-auto-tangle
   :hook
   (org-mode . org-auto-tangle-mode))

@@ -470,18 +470,6 @@
 		(prettify-symbols-mode))))
 #+end_src
 
-* Accounting
-
-** beancount
-
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/third_party/beancount-mode/")
-  (require 'beancount)
-  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode))
-  (add-hook 'beancount-mode-hook
-	    (lambda () (setq-local electric-indent-chars nil)))
-#+end_src
-
 * Org Mode
 
 ** Automatically tangle my configuration files
