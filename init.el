@@ -47,6 +47,9 @@
   (setq hscroll-step 1)
   (setq hscroll-margin 10))
 
+;; Globals
+(defvar emacs-home "~/.emacs.d")
+
 (eval-and-compile
   ;; Allows imenu to show entries for use-package declarations.
   (setopt use-package-enable-imenu-support t)
@@ -58,7 +61,7 @@
   :functions (server-running-p)
   :config (or (server-running-p) (server-mode)))
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path (concat emacs-home "/lisp"))
 
 (progn
   (message "Loading early birds...done (%.3fs)"
@@ -88,7 +91,19 @@
 (use-package eldoc
   :config (global-eldoc-mode))
 
-;; Languages
+;; Languages support
+(use-package autoinsert
+  :init
+  ;; Make sure autoinsert is enabled only once.
+  (when (not (bound-and-true-p auto-insert-mode))
+    (auto-insert-mode 1))
+  :config
+  (setq auto-insert-directory (concat emacs-home "/templates/"))
+  (setq auto-insert-query nil))
+
+(use-package elisp-mode
+  :hook (elisp-mode . (lambda () (require 'init-lang-elisp))))
+
 (use-package rust-mode
   :hook (rust-mode . (lambda () (require 'init-lang-rust))))
 
