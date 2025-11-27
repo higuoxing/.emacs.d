@@ -4,3 +4,6 @@
 [submodule "third_party/org-pivotal"]
 	path = third_party/org-pivotal
 	url = git@github.com:org-pivotal/org-pivotal.git
+[submodule "borg"]
+	path = lib/borg
+	url = git@github.com:emacscollective/borg.git
