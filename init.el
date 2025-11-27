@@ -58,7 +58,7 @@
   :functions (server-running-p)
   :config (or (server-running-p) (server-mode)))
 
-;; (add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 (progn
   (message "Loading early birds...done (%.3fs)"
@@ -89,7 +89,8 @@
   :config (global-eldoc-mode))
 
 ;; Languages
-(use-package rust-mode)
+(use-package rust-mode
+  :hook (rust-mode . (lambda () (require 'init-lang-rust))))
 
 ;; Used for debugging start up duration.
 ;; (borg-report-after-init-duration)
