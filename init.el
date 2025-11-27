@@ -1,9 +1,11 @@
-﻿(setq gc-cons-threshold 10000000)  ;; A large `gc-cons-threshold` may cause freezing and stuttering during long-term interactive use.
+(setq gc-cons-threshold 10000000)  ;; A large `gc-cons-threshold` may cause freezing and stuttering during long-term interactive use.
 (setq inhibit-startup-message t)   ;; Disable the welcome message.
 (scroll-bar-mode -1)               ;; Disable visible scrollbar.
 (tool-bar-mode -1)                 ;; Disable tooltips.
 (set-fringe-mode 0)                ;; Give some breathing room.
 (setq visible-bell t)              ;; Set up the visible bell.
+(setq make-backup-files nil)       ;; stop creating backup~ files
+(setq auto-save-default nil)       ;; stop creating #autosave# files
 (set-face-attribute 'default nil :font "Fira Code" :height 110)
 
 (setq auto-window-vscroll nil)     ;; Disable auto window scroll
@@ -35,9 +37,9 @@
 
 ;; Disable line numbers for some modes.
 (dolist (mode '(org-mode-hook
-		term-mode-hook
-		eshell-mode-hook
-		neotree-mode-hook))
+		  term-mode-hook
+		  eshell-mode-hook
+		  neotree-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Set native compiling logging level.
@@ -46,12 +48,12 @@
 ;; Initialize package sources
 (require 'package)
 (setq package-archives
-      '(;; ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-	;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-	;; ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
-	("gnu" . "https://elpa.gnu.org/packages/")
-	("melpa" . "https://melpa.org/packages/")
-	("org" . "http://orgmode.org/elpa/")))
+	'(;; ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+	  ;; ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+	  ;; ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+	  ("gnu" . "https://elpa.gnu.org/packages/")
+	  ("melpa" . "https://melpa.org/packages/")
+	  ("org" . "http://orgmode.org/elpa/")))
 
 (package-initialize)
 (unless package-archive-contents
@@ -76,7 +78,7 @@
 ;; no-littering doesn't set this by default so we must place
 ;; auto save files in the same path as it uses for sessions.
 (setq auto-save-file-name-transforms
-      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+	`((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
 
 (use-package all-the-icons
   :if (display-graphic-p)) ;; Required by doom-modeline
@@ -144,8 +146,8 @@
   (setq dashboard-center-content t)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-items '((recents  . 5)
-			  (projects . 3)
-			  (agenda . 4)))
+			    (projects . 3)
+			    (agenda . 4)))
   (setq inhibit-startup-message t))
 
 (use-package rainbow-delimiters
@@ -191,12 +193,12 @@
 (use-package counsel
   :diminish
   :bind (("M-x" . counsel-M-x)
-	 ("C-c f" . counsel-fzf)
-	 ("C-x C-f" . counsel-find-file)
-	 :map counsel-find-file-map
-	 ("C-h" . counsel-up-directory)
-	 :map minibuffer-local-map
-	 ("C-r" . counsel-minibuffer-history))
+	   ("C-c f" . counsel-fzf)
+	   ("C-x C-f" . counsel-find-file)
+	   :map counsel-find-file-map
+	   ("C-h" . counsel-up-directory)
+	   :map minibuffer-local-map
+	   ("C-r" . counsel-minibuffer-history))
   :config
   (setq ivy-initial-inputs-alist nil) ;; Don't start search with '^'
   (my/leader-key
@@ -207,20 +209,20 @@
   :after swiper
   :diminish
   :bind (("C-s" . swiper-isearch)
-	 ("C-r" . swiper-isearch-backward)
-	 :map ivy-minibuffer-map
-	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ;; I don't need these two lines since I love emacs key-bindings.
-	 ;; ("C-j" . ivy-next-line)
-	 ;; ("C-k" . ivy-previous-line)
-	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
-	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
+	   ("C-r" . swiper-isearch-backward)
+	   :map ivy-minibuffer-map
+	   ("TAB" . ivy-alt-done)
+	   ("C-l" . ivy-alt-done)
+	   ;; I don't need these two lines since I love emacs key-bindings.
+	   ;; ("C-j" . ivy-next-line)
+	   ;; ("C-k" . ivy-previous-line)
+	   :map ivy-switch-buffer-map
+	   ("C-k" . ivy-previous-line)
+	   ("C-l" . ivy-done)
+	   ("C-d" . ivy-switch-buffer-kill)
+	   :map ivy-reverse-i-search-map
+	   ("C-k" . ivy-previous-line)
+	   ("C-d" . ivy-reverse-i-search-kill))
   :config (ivy-mode 1))
 
 (use-package ivy-xref
@@ -278,14 +280,14 @@
   "Open NeoTree using the git root."
   (interactive)
   (let ((project-dir (projectile-project-root))
-	(file-name (buffer-file-name)))
+	  (file-name (buffer-file-name)))
     (neotree-toggle)
     (if project-dir
-	(if (neo-global--window-exists-p)
-	    (progn
-	      (neotree-dir project-dir)
-	      (neotree-find file-name)))
-      (message "Could not find git project root."))))
+	  (if (neo-global--window-exists-p)
+	      (progn
+		(neotree-dir project-dir)
+		(neotree-find file-name)))
+	(message "Could not find git project root."))))
 (use-package neotree
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
@@ -322,7 +324,7 @@
   (yas-global-mode 1)
   :config
   (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets/")))
+	  '("~/.emacs.d/snippets/")))
 
 ;; Disable hightlight indent.
 ;; (use-package highlight-indent-guides
@@ -379,7 +381,7 @@
   :config
   (setq rust-format-on-save t)
   (add-hook 'rust-mode-hook
-	    (lambda () (prettify-symbols-mode))))
+	      (lambda () (prettify-symbols-mode))))
 
 (use-package go-mode)
 
@@ -392,12 +394,12 @@
 ;; Have a nice camel as the mode name
 ;; (add-hook 'before-save-hook 'ocamlformat-before-save)
 (add-hook 'tuareg-mode-hook
-	  (lambda() (setq tuareg-mode-name "🐫")))
+	    (lambda() (setq tuareg-mode-name "🐫")))
 ;; Pretty symbols.
 (add-hook 'tuareg-mode-hook
-	  (lambda()
-	    (when (functionp 'prettify-symbols-mode)
-	      (prettify-symbols-mode))))
+	    (lambda()
+	      (when (functionp 'prettify-symbols-mode)
+		(prettify-symbols-mode))))
 
 (use-package org-auto-tangle
   :hook
@@ -406,12 +408,12 @@
 (with-eval-after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)
-			       (python . t)))
+				 (python . t)))
   (setq org-confirm-babel-evaluate nil)
   (setq org-startup-with-beamer-mode t)
 
   (setq org-latex-pdf-process '("xelatex -interaction nonstopmode %f"
-				"xelatex -interaction nonstopmode %f"))
+				  "xelatex -interaction nonstopmode %f"))
 
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))

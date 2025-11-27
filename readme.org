@@ -11,6 +11,8 @@
   (tool-bar-mode -1)                 ;; Disable tooltips.
   (set-fringe-mode 0)                ;; Give some breathing room.
   (setq visible-bell t)              ;; Set up the visible bell.
+  (setq make-backup-files nil)       ;; stop creating backup~ files
+  (setq auto-save-default nil)       ;; stop creating #autosave# files
   (set-face-attribute 'default nil :font "Fira Code" :height 110)
 
   (setq auto-window-vscroll nil)     ;; Disable auto window scroll
@@ -42,9 +44,9 @@
 
   ;; Disable line numbers for some modes.
   (dolist (mode '(org-mode-hook
-		  term-mode-hook
-		  eshell-mode-hook
-		  neotree-mode-hook))
+  		  term-mode-hook
+  		  eshell-mode-hook
+  		  neotree-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
   ;; Set native compiling logging level.
