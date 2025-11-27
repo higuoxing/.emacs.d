@@ -51,6 +51,7 @@
 
   ;; Set native compiling logging level.
   (setq warning-minimum-level :error)
+  (setq create-lockfiles nil)
 #+end_src
 
 * Package Manager Configuration

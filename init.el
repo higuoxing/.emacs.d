@@ -44,6 +44,7 @@
 
 ;; Set native compiling logging level.
 (setq warning-minimum-level :error)
+(setq create-lockfiles nil)
 
 ;; Initialize package sources
 (require 'package)
