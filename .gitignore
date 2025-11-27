@@ -1,6 +1,6 @@
-custom.el
 elpa/
 etc/
 var/
 eln-cache/
 auto-save-list/
+*.elc
