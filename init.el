@@ -1,6 +1,6 @@
-;;; init1.el --- init                                -*- lexical-binding: t; -*-
+;;; init.el --- init                                -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025  
+;; Copyright (C) 2025
 
 ;; Author:  <higuoxing@gmail.com>
 ;; Keywords: convenience
@@ -18,7 +18,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-;; 
+;;; Commentary:
 
 ;;; Code:
 
@@ -71,7 +71,9 @@
 
 ;; Globals
 (defconst my/emacs-directory (concat (getenv "HOME") "/.emacs.d/"))
-(defun my/emacs-subdir (d) (expand-file-name d my/emacs-directory))
+(defun my/emacs-subdir (d)
+  "Translate the sub-directory D of $HOME/.emacs.d into the full path."
+  (expand-file-name d my/emacs-directory))
 
 (eval-and-compile
   ;; Allows imenu to show entries for use-package declarations.
@@ -115,6 +117,18 @@
   :config (global-eldoc-mode))
 
 ;; Languages support
+(use-package flycheck
+  ;; To suppress flycheck warning.
+  :functions global-flycheck-mode
+  :config
+  ;; Check syntax on save.
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  ;; Specify emacs-lisp scripts load path for flycheck.
+  (setq flycheck-emacs-lisp-load-path 'inherit)
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+(use-package flycheck-aspell)
+
 (use-package autoinsert
   :init
   ;; Make sure autoinsert is enabled only once.
