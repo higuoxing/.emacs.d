@@ -1,4 +1,26 @@
-;;; init.el --- user-init-file                    -*- lexical-binding: t -*-
+;;; init1.el --- init                                -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2025  
+
+;; Author:  <higuoxing@gmail.com>
+;; Keywords: convenience
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;; 
+
+;;; Code:
 
 ;; Used for debugging start up duration.
 ;; (borg-report-load-duration)
@@ -48,7 +70,8 @@
   (setq hscroll-margin 10))
 
 ;; Globals
-(defvar emacs-home "~/.emacs.d")
+(defconst my/emacs-directory (concat (getenv "HOME") "/.emacs.d/"))
+(defun my/emacs-subdir (d) (expand-file-name d my/emacs-directory))
 
 (eval-and-compile
   ;; Allows imenu to show entries for use-package declarations.
@@ -61,7 +84,7 @@
   :functions (server-running-p)
   :config (or (server-running-p) (server-mode)))
 
-(add-to-list 'load-path (concat emacs-home "/lisp"))
+(add-to-list 'load-path (my/emacs-subdir "/lisp"))
 
 (progn
   (message "Loading early birds...done (%.3fs)"
@@ -98,7 +121,7 @@
   (when (not (bound-and-true-p auto-insert-mode))
     (auto-insert-mode 1))
   :config
-  (setq auto-insert-directory (concat emacs-home "/templates/"))
+  ;; Don't prompt before insertion.
   (setq auto-insert-query nil))
 
 (use-package elisp-mode
@@ -110,7 +133,5 @@
 ;; Used for debugging start up duration.
 ;; (borg-report-after-init-duration)
 
-;; Local Variables:
-;; indent-tabs-mode: nil
-;; End:
+(provide 'init)
 ;;; init.el ends here
