@@ -116,7 +116,12 @@
 (use-package eldoc
   :config (global-eldoc-mode))
 
-;; Languages support
+;;; Languages support
+;; Re-map prog modes to their tree-sitter modes.
+(setq major-mode-remap-alist
+      '((c-mode . c-ts-mode)
+	(c++-mode . c++-ts-mode)))
+
 (use-package flycheck
   :hook (after-init . global-flycheck-mode)
   :config
