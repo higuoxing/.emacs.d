@@ -118,14 +118,12 @@
 
 ;; Languages support
 (use-package flycheck
-  ;; To suppress flycheck warning.
-  :functions global-flycheck-mode
+  :hook (after-init . global-flycheck-mode)
   :config
   ;; Check syntax on save.
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   ;; Specify emacs-lisp scripts load path for flycheck.
-  (setq flycheck-emacs-lisp-load-path 'inherit)
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+  (setq flycheck-emacs-lisp-load-path 'inherit))
 
 (use-package flycheck-aspell)
 
@@ -138,11 +136,15 @@
   ;; Don't prompt before insertion.
   (setq auto-insert-query nil))
 
-(use-package elisp-mode
-  :hook (elisp-mode . (lambda () (require 'init-lang-elisp))))
+;; Lisp.
+(use-package paredit
+  ;; Enable this in elisp, ielm
+  :hook emacs-lisp-mode inferior-emacs-lisp-mode)
 
+;; Rust
 (use-package rust-mode
-  :hook (rust-mode . (lambda () (require 'init-lang-rust))))
+  :init
+  (setq rust-mode-treesitter-derive t))
 
 ;; Used for debugging start up duration.
 ;; (borg-report-after-init-duration)
