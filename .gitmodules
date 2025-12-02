@@ -7,6 +7,9 @@
 [submodule "flycheck-aspell"]
 	path = lib/flycheck-aspell
 	url = git@github.com:leotaku/flycheck-aspell.git
+[submodule "paredit"]
+	path = lib/paredit
+	url = git@github.com:emacsmirror/paredit.git
 [submodule "rust-mode"]
 	path = lib/rust-mode
 	url = git@github.com:rust-lang/rust-mode.git
