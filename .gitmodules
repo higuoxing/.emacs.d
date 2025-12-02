@@ -1,6 +1,9 @@
 [submodule "borg"]
 	path = lib/borg
 	url = git@github.com:emacscollective/borg.git
+[submodule "company-mode"]
+	path = lib/company-mode
+	url = git@github.com:company-mode/company-mode.git
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
