@@ -151,6 +151,11 @@
   :init
   (setq rust-mode-treesitter-derive t))
 
+(use-package flycheck-rust
+  ;; There're some variables to set for flycheck before checking
+  ;; projects.  I use flycheck-rust to set them up.
+  :hook ((rust-mode flycheck-mode) . flycheck-rust-setup))
+
 ;; Used for debugging start up duration.
 ;; (borg-report-after-init-duration)
 
