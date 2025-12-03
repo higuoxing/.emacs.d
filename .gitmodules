@@ -1,3 +1,6 @@
+[submodule "avy"]
+	path = lib/avy
+	url = git@github.com:abo-abo/avy.git
 [submodule "borg"]
 	path = lib/borg
 	url = git@github.com:emacscollective/borg.git
@@ -16,18 +19,24 @@
 [submodule "flycheck-rust"]
 	path = lib/flycheck-rust
 	url = git@github.com:flycheck/flycheck-rust.git
+[submodule "hydra"]
+	path = lib/hydra
+	url = git@github.com:abo-abo/hydra.git
+[submodule "lib/tree-sitter-module"]
+	path = lib/tree-sitter-module
+	url = git@github.com:casouri/tree-sitter-module.git
 [submodule "paredit"]
 	path = lib/paredit
 	url = git@github.com:emacsmirror/paredit.git
 [submodule "rust-mode"]
 	path = lib/rust-mode
 	url = git@github.com:rust-lang/rust-mode.git
+[submodule "swiper"]
+	path = lib/swiper
+	url = git@github.com:abo-abo/swiper.git
 [submodule "third_party/beancount-mode"]
 	path = third_party/beancount-mode
 	url = git@github.com:beancount/beancount-mode.git
 [submodule "third_party/org-pivotal"]
 	path = third_party/org-pivotal
 	url = git@github.com:org-pivotal/org-pivotal.git
-[submodule "lib/tree-sitter-module"]
-	path = lib/tree-sitter-module
-	url = git@github.com:casouri/tree-sitter-module.git
