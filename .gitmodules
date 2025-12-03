@@ -28,3 +28,6 @@
 [submodule "third_party/org-pivotal"]
 	path = third_party/org-pivotal
 	url = git@github.com:org-pivotal/org-pivotal.git
+[submodule "lib/tree-sitter-module"]
+	path = lib/tree-sitter-module
+	url = git@github.com:casouri/tree-sitter-module.git
