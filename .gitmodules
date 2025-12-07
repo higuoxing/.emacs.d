@@ -7,12 +7,12 @@
 [submodule "closql"]
 	path = lib/closql
 	url = git@github.com:emacscollective/closql.git
-[submodule "company-mode"]
-	path = lib/company-mode
-	url = git@github.com:company-mode/company-mode.git
 [submodule "compat"]
 	path = lib/compat
 	url = git@github.com:emacs-compat/compat.git
+[submodule "corfu"]
+	path = lib/corfu
+	url = https://github.com/minad/corfu
 [submodule "dash"]
 	path = lib/dash
 	url = git@github.com:magnars/dash.el.git
