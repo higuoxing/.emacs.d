@@ -163,8 +163,6 @@
   ;; Specify emacs-lisp scripts load path for flycheck.
   (setq flycheck-emacs-lisp-load-path 'inherit))
 
-(use-package flycheck-aspell)
-
 (use-package autoinsert
   :init
   ;; Make sure autoinsert is enabled only once.

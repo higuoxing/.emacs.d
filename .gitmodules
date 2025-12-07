@@ -13,9 +13,6 @@
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
-[submodule "flycheck-aspell"]
-	path = lib/flycheck-aspell
-	url = git@github.com:leotaku/flycheck-aspell.git
 [submodule "flycheck-rust"]
 	path = lib/flycheck-rust
 	url = git@github.com:flycheck/flycheck-rust.git
