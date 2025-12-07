@@ -19,9 +19,6 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
-[submodule "lib/tree-sitter-module"]
-	path = lib/tree-sitter-module
-	url = git@github.com:casouri/tree-sitter-module.git
 [submodule "paredit"]
 	path = lib/paredit
 	url = git@github.com:emacsmirror/paredit.git
@@ -37,3 +34,19 @@
 [submodule "third_party/org-pivotal"]
 	path = third_party/org-pivotal
 	url = git@github.com:org-pivotal/org-pivotal.git
+[submodule "closql"]
+	path = lib/closql
+	url = git@github.com:emacscollective/closql.git
+[submodule "emacsql"]
+	path = lib/emacsql
+	url = git@github.com:magit/emacsql.git
+	no-byte-compile = emacsql-pg.el
+[submodule "compat"]
+	path = lib/compat
+	url = git@github.com:emacs-compat/compat.git
+[submodule "epkg"]
+	path = lib/epkg
+	url = git@github.com:emacscollective/epkg.git
+[submodule "llama"]
+	path = lib/llama
+	url = git@github.com:tarsius/llama.git
