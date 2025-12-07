@@ -149,6 +149,22 @@
   (keymap-global-set "C-S-o" #'counsel-rhythmbox)
   (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history))
 
+;; Use ivy with xref.
+(use-package ivy-xref
+  :functions (ivy-xref-show-defs ivy-xref-show-xrefs)
+  :init
+  ;; xref initialization is different in Emacs 27 - there are two different
+  ;; variables which can be set rather than just one
+  :config
+  (when (>= emacs-major-version 27)
+    (setq-default xref-show-definitions-function #'ivy-xref-show-defs))
+  ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
+  ;; commands other than xref-find-definitions (e.g. project-find-regexp)
+  ;; as well
+  (setq-default xref-show-xrefs-function #'ivy-xref-show-xrefs)
+  (keymap-global-set "C-x g g g" #'xref-find-definitions)
+  (keymap-global-set "C-x g g r" #'xref-find-references))
+
 ;;; Languages support
 ;; Re-map prog modes to their tree-sitter modes.
 (setq major-mode-remap-alist

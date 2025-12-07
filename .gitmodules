@@ -32,6 +32,9 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
+[submodule "ivy-xref"]
+	path = lib/ivy-xref
+	url = https://github.com/alexmurray/ivy-xref
 [submodule "llama"]
 	path = lib/llama
 	url = git@github.com:tarsius/llama.git
