@@ -44,6 +44,9 @@
 [submodule "magit"]
 	path = lib/magit
 	url = https://github.com/magit/magit
+[submodule "markdown-ts-mode"]
+	path = lib/markdown-ts-mode
+	url = https://github.com/LionyxML/markdown-ts-mode
 [submodule "paredit"]
 	path = lib/paredit
 	url = git@github.com:emacsmirror/paredit.git

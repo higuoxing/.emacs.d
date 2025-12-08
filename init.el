@@ -256,6 +256,10 @@
   ;; projects.  I use flycheck-rust to set them up.
   :hook ((rust-mode flycheck-mode) . flycheck-rust-setup))
 
+(use-package markdown-ts-mode
+  :mode ("\\.md\\'" . markdown-ts-mode)
+  :defer t)
+
 ;; Used for debugging start up duration.
 ;; (borg-report-after-init-duration)
 
