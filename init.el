@@ -147,6 +147,7 @@
   (keymap-global-set "C-c k" #'counsel-ag)
   (keymap-global-set "C-x l" #'counsel-locate)
   (keymap-global-set "C-S-o" #'counsel-rhythmbox)
+  (keymap-global-set "C-x C-b" #'switch-to-buffer)
   (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history))
 
 ;; Use ivy with xref.
