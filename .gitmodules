@@ -22,6 +22,9 @@
 [submodule "doom-modeline"]
 	path = lib/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline
+[submodule "editorconfig"]
+	path = lib/editorconfig
+	url = https://github.com/editorconfig/editorconfig-emacs
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = git@github.com:magit/emacsql.git

@@ -126,6 +126,7 @@
 (require 'init-autoinsert)
 (require 'init-ivy)
 (require 'init-magit)
+(require 'init-editorconfig)
 ;; Code completion
 (require 'init-corfu)
 ;; Language server support
@@ -138,6 +139,7 @@
       '((c-mode . c-ts-mode)
 	(c++-mode . c++-ts-mode)
 	(rust-mode . rust-ts-mode)))
+
 (require 'init-lang-lisp)
 (require 'init-lang-rust)
 (require 'init-lang-markdown)
