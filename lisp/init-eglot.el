@@ -1,9 +1,9 @@
-;;; init-lang-rust.el --- initialize rust language   -*- lexical-binding: t; -*-
+;;; init-eglot.el --- initialize eglot               -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp, rust
+;; Keywords: lisp
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,17 +24,11 @@
 
 ;;; Code:
 
-(use-package rust-mode
-  :init
-  (setq rust-mode-treesitter-derive t)
-  :config
-  (setq rust-format-on-save t)
-  (prettify-symbols-mode))
+(use-package eglot
+  :defer t
+  :hook ((c-ts-mode . eglot-ensure)
+	 (c++-ts-mode . eglot-ensure)
+	 (rust-ts-mode . eglot-ensure)))
 
-(use-package flycheck-rust
-  ;; There're some variables to set for flycheck before checking
-  ;; projects.  I use flycheck-rust to set them up.
-  :hook ((rust-mode flycheck-mode) . flycheck-rust-setup))
-
-(provide 'init-lang-rust)
-;;; init-lang-rust.el ends here
+(provide 'init-eglot)
+;;; init-eglot.el ends here

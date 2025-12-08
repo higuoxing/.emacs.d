@@ -1,9 +1,9 @@
-;;; init-lang-rust.el --- initialize rust language   -*- lexical-binding: t; -*-
+;;; init-autoinsert.el --- initialize autoinsert     -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp, rust
+;; Keywords: lisp
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,21 +20,15 @@
 
 ;;; Commentary:
 
-;; 
+;;
 
 ;;; Code:
 
-(use-package rust-mode
+(use-package autoinsert
+  :defer t
   :init
-  (setq rust-mode-treesitter-derive t)
-  :config
-  (setq rust-format-on-save t)
-  (prettify-symbols-mode))
+  (setq user-full-name "Xing Guo")
+  (setq user-mail-address "higuoxing@gmail.com"))
 
-(use-package flycheck-rust
-  ;; There're some variables to set for flycheck before checking
-  ;; projects.  I use flycheck-rust to set them up.
-  :hook ((rust-mode flycheck-mode) . flycheck-rust-setup))
-
-(provide 'init-lang-rust)
-;;; init-lang-rust.el ends here
+(provide 'init-autoinsert)
+;;; init-autoinsert.el ends here

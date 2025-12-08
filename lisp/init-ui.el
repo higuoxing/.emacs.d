@@ -1,9 +1,9 @@
-;;; init-lang-rust.el --- initialize rust language   -*- lexical-binding: t; -*-
+;;; init-ui.el --- initialize UI.                    -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp, rust
+;; Keywords: lisp, ui
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,17 +24,11 @@
 
 ;;; Code:
 
-(use-package rust-mode
-  :init
-  (setq rust-mode-treesitter-derive t)
+;; doom-modeline requires nerd-fonts (yay -S nerd-fonts).
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
   :config
-  (setq rust-format-on-save t)
-  (prettify-symbols-mode))
+  (setq doom-modeline-project-detection 'project))
 
-(use-package flycheck-rust
-  ;; There're some variables to set for flycheck before checking
-  ;; projects.  I use flycheck-rust to set them up.
-  :hook ((rust-mode flycheck-mode) . flycheck-rust-setup))
-
-(provide 'init-lang-rust)
-;;; init-lang-rust.el ends here
+(provide 'init-ui)
+;;; init-ui.el ends here

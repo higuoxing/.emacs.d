@@ -1,9 +1,9 @@
-;;; init-lang-rust.el --- initialize rust language   -*- lexical-binding: t; -*-
+;;; init-flycheck.el --- initialize flycheck         -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp, rust
+;; Keywords: lisp
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,17 +24,13 @@
 
 ;;; Code:
 
-(use-package rust-mode
-  :init
-  (setq rust-mode-treesitter-derive t)
+(use-package flycheck
+  :hook (after-init . global-flycheck-mode)
   :config
-  (setq rust-format-on-save t)
-  (prettify-symbols-mode))
+  ;; Check syntax on save.
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  ;; Specify emacs-lisp scripts load path for flycheck.
+  (setq flycheck-emacs-lisp-load-path 'inherit))
 
-(use-package flycheck-rust
-  ;; There're some variables to set for flycheck before checking
-  ;; projects.  I use flycheck-rust to set them up.
-  :hook ((rust-mode flycheck-mode) . flycheck-rust-setup))
-
-(provide 'init-lang-rust)
-;;; init-lang-rust.el ends here
+(provide 'init-flycheck)
+;;; init-flycheck.el ends here
