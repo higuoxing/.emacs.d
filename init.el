@@ -132,6 +132,7 @@
 ;; Language server support
 (require 'init-eglot)
 (require 'init-flycheck)
+(require 'init-xref)
 
 ;;; Languages
 ;; Re-map prog modes to their tree-sitter modes.

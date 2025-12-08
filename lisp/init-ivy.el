@@ -69,9 +69,7 @@
   ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
   ;; commands other than xref-find-definitions (e.g. project-find-regexp)
   ;; as well
-  (setq-default xref-show-xrefs-function #'ivy-xref-show-xrefs)
-  (keymap-global-set "C-x g g g" #'xref-find-definitions)
-  (keymap-global-set "C-x g g r" #'xref-find-references))
+  (setq-default xref-show-xrefs-function #'ivy-xref-show-xrefs))
 
 (provide 'init-ivy)
 ;;; init-ivy.el ends here
