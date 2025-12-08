@@ -116,6 +116,13 @@
 (use-package eldoc
   :config (global-eldoc-mode))
 
+;;; UI
+;; doom-modeline requires nerd-fonts (yay -S nerd-fonts).
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-project-detection 'project))
+
 ;;; Development experience
 (use-package ivy
   :hook (after-init . ivy-mode)

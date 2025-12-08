@@ -19,6 +19,9 @@
 [submodule "dash"]
 	path = lib/dash
 	url = git@github.com:magnars/dash.el.git
+[submodule "doom-modeline"]
+	path = lib/doom-modeline
+	url = https://github.com/seagle0128/doom-modeline
 [submodule "emacsql"]
 	path = lib/emacsql
 	url = git@github.com:magit/emacsql.git
@@ -26,6 +29,9 @@
 [submodule "epkg"]
 	path = lib/epkg
 	url = git@github.com:emacscollective/epkg.git
+[submodule "f"]
+	path = lib/f
+	url = https://github.com/rejeep/f.el
 [submodule "flycheck"]
 	path = lib/flycheck
 	url = git@github.com:flycheck/flycheck.git
@@ -47,12 +53,21 @@
 [submodule "markdown-ts-mode"]
 	path = lib/markdown-ts-mode
 	url = https://github.com/LionyxML/markdown-ts-mode
+[submodule "nerd-icons"]
+	path = lib/nerd-icons
+	url = https://github.com/rainstormstudio/nerd-icons.el
 [submodule "paredit"]
 	path = lib/paredit
 	url = git@github.com:emacsmirror/paredit.git
 [submodule "rust-mode"]
 	path = lib/rust-mode
 	url = git@github.com:rust-lang/rust-mode.git
+[submodule "s"]
+	path = lib/s
+	url = https://github.com/magnars/s.el
+[submodule "shrink-path"]
+	path = lib/shrink-path
+	url = https://gitlab.com/bennya/shrink-path.el
 [submodule "swiper"]
 	path = lib/swiper
 	url = git@github.com:abo-abo/swiper.git
