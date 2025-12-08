@@ -1,6 +1,8 @@
 DRONES_DIR = $(shell git config "borg.drones-directory" || echo "lib")
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 
+INIT_FILES := $(CURRENT_DIR)/lisp/*.el
+
 -include $(DRONES_DIR)/borg/borg.mk
 
 bootstrap-borg:
