@@ -165,6 +165,9 @@
   (keymap-global-set "C-x g g g" #'xref-find-definitions)
   (keymap-global-set "C-x g g r" #'xref-find-references))
 
+(use-package magit
+  :defer t)
+
 ;;; Languages support
 ;; Re-map prog modes to their tree-sitter modes.
 (setq major-mode-remap-alist

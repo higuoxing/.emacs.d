@@ -10,6 +10,9 @@
 [submodule "compat"]
 	path = lib/compat
 	url = git@github.com:emacs-compat/compat.git
+[submodule "cond-let"]
+	path = lib/cond-let
+	url = https://github.com/tarsius/cond-let
 [submodule "corfu"]
 	path = lib/corfu
 	url = https://github.com/minad/corfu
@@ -38,6 +41,9 @@
 [submodule "llama"]
 	path = lib/llama
 	url = git@github.com:tarsius/llama.git
+[submodule "magit"]
+	path = lib/magit
+	url = https://github.com/magit/magit
 [submodule "paredit"]
 	path = lib/paredit
 	url = git@github.com:emacsmirror/paredit.git
@@ -53,7 +59,13 @@
 [submodule "third_party/org-pivotal"]
 	path = third_party/org-pivotal
 	url = git@github.com:org-pivotal/org-pivotal.git
+[submodule "transient"]
+	path = lib/transient
+	url = https://github.com/magit/transient
 [submodule "tree-mode-module"]
 	path = lib/tree-mode-module
 	url = git@github.com:casouri/tree-sitter-module.git
 	build-step = INSTALL_DIR=~/.emacs.d/tree-sitter JOBS=$(nproc) ./batch.sh
+[submodule "with-editor"]
+	path = lib/with-editor
+	url = https://github.com/magit/with-editor
