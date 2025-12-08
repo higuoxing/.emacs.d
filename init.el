@@ -144,6 +144,7 @@
 (require 'init-lang-lisp)
 (require 'init-lang-rust)
 (require 'init-lang-markdown)
+(require 'init-lang-typst)
 
 ;; Used for debugging start up duration.
 ;; (borg-report-after-init-duration)
