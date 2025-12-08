@@ -132,7 +132,8 @@
 			     counsel-describe-variable counsel-describe-symbol
 			     counsel-find-library counsel-info-lookup-symbol
 			     counsel-unicode-char counsel-git counsel-git-grep counsel-ag
-			     counsel-locate counsel-rhythmbox counsel-minibuffer-history)
+			     counsel-locate counsel-rhythmbox counsel-minibuffer-history
+			     counsel-switch-buffer)
   :config
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
@@ -154,7 +155,7 @@
   (keymap-global-set "C-c k" #'counsel-ag)
   (keymap-global-set "C-x l" #'counsel-locate)
   (keymap-global-set "C-S-o" #'counsel-rhythmbox)
-  (keymap-global-set "C-x C-b" #'switch-to-buffer)
+  (keymap-global-set "C-x C-b" #'counsel-switch-buffer)
   (keymap-set minibuffer-local-map "C-r" #'counsel-minibuffer-history))
 
 ;; Use ivy with xref.
