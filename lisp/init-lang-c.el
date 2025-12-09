@@ -1,9 +1,9 @@
-;;; init-lang-rust.el --- initialize rust language   -*- lexical-binding: t; -*-
+;;; init-lang-c.el --- initialization for c language  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp, rust
+;; Keywords: c
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,18 +24,11 @@
 
 ;;; Code:
 
-(use-package rust-mode
-  :mode ("\\.rs\\'")
-  :init
-  (setq rust-mode-treesitter-derive t)
-  :config
-  (setq rust-format-on-save t)
-  (prettify-symbols-mode))
+;; Use treesit mode for C/C++.
+(use-package c-ts-mode
+  :hook (c-mode . c-ts-mode))
+(use-package c++-ts-mode
+  :hook (c++-mode . c++-ts-mode))
 
-(use-package flycheck-rust
-  ;; There're some variables to set for flycheck before checking
-  ;; projects.  I use flycheck-rust to set them up.
-  :hook ((rust-ts-mode flycheck-mode) . flycheck-rust-setup))
-
-(provide 'init-lang-rust)
-;;; init-lang-rust.el ends here
+(provide 'init-lang-c)
+;;; init-lang-c.el ends here

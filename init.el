@@ -135,13 +135,8 @@
 (require 'init-xref)
 
 ;;; Languages
-;; Re-map prog modes to their tree-sitter modes.
-(setq major-mode-remap-alist
-      '((c-mode . c-ts-mode)
-	(c++-mode . c++-ts-mode)
-	(rust-mode . rust-ts-mode)))
-
 (require 'init-lang-lisp)
+(require 'init-lang-c)
 (require 'init-lang-rust)
 (require 'init-lang-markdown)
 (require 'init-lang-typst)
