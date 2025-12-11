@@ -25,10 +25,13 @@
 ;;; Code:
 
 (use-package eglot
+  :functions (eglot-rename)
   :defer t
   :hook ((c-ts-mode . eglot-ensure)
 	 (c++-ts-mode . eglot-ensure)
-	 (rust-ts-mode . eglot-ensure)))
+	 (rust-ts-mode . eglot-ensure))
+  :config
+  (keymap-global-set "C-x g r r" #'eglot-rename))
 
 (provide 'init-eglot)
 ;;; init-eglot.el ends here
