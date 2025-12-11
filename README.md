@@ -1,4 +1,4 @@
-# .emacs.d
+# ~/.emacs.d
 
 ## Build
 
