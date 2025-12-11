@@ -24,11 +24,17 @@
 
 ;;; Code:
 
+(defun my/sanitize_string (str)
+  "Remove newlines from the given STR."
+  (replace-regexp-in-string "\n" "" str))
+
 (use-package autoinsert
   :defer t
   :init
-  (setq user-full-name "Xing Guo")
-  (setq user-mail-address "higuoxing@gmail.com"))
+  (setq user-full-name
+	(my/sanitize_string (shell-command-to-string "git config user.name")))
+  (setq user-mail-address
+	(my/sanitize_string (shell-command-to-string "git config user.email"))))
 
 (provide 'init-autoinsert)
 ;;; init-autoinsert.el ends here
