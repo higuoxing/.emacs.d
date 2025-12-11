@@ -123,8 +123,11 @@
 (require 'init-ui)
 
 ;;; Development experience
+(require 'init-emacs)
 (require 'init-autoinsert)
-(require 'init-ivy)
+(require 'init-vertico)
+(require 'init-orderless)
+(require 'init-consult)
 (require 'init-magit)
 (require 'init-editorconfig)
 ;; Code completion

@@ -13,6 +13,9 @@
 [submodule "cond-let"]
 	path = lib/cond-let
 	url = https://github.com/tarsius/cond-let
+[submodule "consult"]
+	path = lib/consult
+	url = https://github.com/minad/consult
 [submodule "corfu"]
 	path = lib/corfu
 	url = https://github.com/minad/corfu
@@ -44,9 +47,6 @@
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git
-[submodule "ivy-xref"]
-	path = lib/ivy-xref
-	url = https://github.com/alexmurray/ivy-xref
 [submodule "llama"]
 	path = lib/llama
 	url = git@github.com:tarsius/llama.git
@@ -59,6 +59,9 @@
 [submodule "nerd-icons"]
 	path = lib/nerd-icons
 	url = https://github.com/rainstormstudio/nerd-icons.el
+[submodule "orderless"]
+	path = lib/orderless
+	url = https://github.com/oantolin/orderless
 [submodule "paredit"]
 	path = lib/paredit
 	url = git@github.com:emacsmirror/paredit.git
@@ -71,9 +74,6 @@
 [submodule "shrink-path"]
 	path = lib/shrink-path
 	url = https://gitlab.com/bennya/shrink-path.el
-[submodule "swiper"]
-	path = lib/swiper
-	url = git@github.com:abo-abo/swiper.git
 [submodule "third_party/beancount-mode"]
 	path = third_party/beancount-mode
 	url = git@github.com:beancount/beancount-mode.git
@@ -90,6 +90,9 @@
 [submodule "typst-ts-mode"]
 	path = lib/typst-ts-mode
 	url = https://codeberg.org/meow_king/typst-ts-mode
+[submodule "vertico"]
+	path = lib/vertico
+	url = https://github.com/minad/vertico
 [submodule "with-editor"]
 	path = lib/with-editor
 	url = https://github.com/magit/with-editor
