@@ -1,9 +1,9 @@
-;;; init-eglot.el --- initialize eglot               -*- lexical-binding: t; -*-
+;;; init-lang-python.el --- initialize python language.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp
+;; Keywords: python
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,16 +24,9 @@
 
 ;;; Code:
 
-(use-package eglot
-  :functions (eglot-rename)
-  :defer t
-  :hook ((c-ts-mode . eglot-ensure)
-	 (c++-ts-mode . eglot-ensure)
-	 (rust-ts-mode . eglot-ensure)
-	 (python-ts-mode . eglot-ensure))
-  :config
-  (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server")))
-  (keymap-global-set "C-x g r r" #'eglot-rename))
+;; Use treesit mode for Python
+(use-package python-ts-mode
+  :hook (python-mode . python-ts-mode))
 
-(provide 'init-eglot)
-;;; init-eglot.el ends here
+(provide 'init-lang-python)
+;;; init-lang-python.el ends here

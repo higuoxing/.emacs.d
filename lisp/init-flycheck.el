@@ -30,7 +30,9 @@
   ;; Check syntax on save.
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   ;; Specify emacs-lisp scripts load path for flycheck.
-  (setq flycheck-emacs-lisp-load-path 'inherit))
+  (setq flycheck-emacs-lisp-load-path 'inherit)
+  ;; Disable flake8 as there're many errors.
+  (setq-default flycheck-disabled-checkers '(python-flake8)))
 
 (provide 'init-flycheck)
 ;;; init-flycheck.el ends here

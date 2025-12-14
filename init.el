@@ -141,6 +141,7 @@
 (require 'init-lang-lisp)
 (require 'init-lang-c)
 (require 'init-lang-rust)
+(require 'init-lang-python)
 (require 'init-lang-markdown)
 (require 'init-lang-typst)
 
