@@ -24,7 +24,9 @@
 
 ;;; Code:
 
-;; doom-modeline requires nerd-fonts (yay -S nerd-fonts).
+;; doom-modeline requires nerd-fonts.
+;; To install run:
+;; (nerd-icons-install-fonts)
 (use-package doom-modeline
   :hook (after-init . doom-modeline-mode)
   :config
