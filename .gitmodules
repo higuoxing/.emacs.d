@@ -83,10 +83,6 @@
 [submodule "transient"]
 	path = lib/transient
 	url = https://github.com/magit/transient
-[submodule "tree-mode-module"]
-	path = lib/tree-mode-module
-	url = git@github.com:casouri/tree-sitter-module.git
-	build-step = INSTALL_DIR=~/.emacs.d/tree-sitter JOBS=$(nproc) ./batch.sh
 [submodule "typst-ts-mode"]
 	path = lib/typst-ts-mode
 	url = https://codeberg.org/meow_king/typst-ts-mode

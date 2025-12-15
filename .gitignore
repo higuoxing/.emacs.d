@@ -4,7 +4,6 @@ var/
 eln-cache/
 auto-save-list/
 *.elc
-tree-sitter/
 projects
 eshell/
 recentf

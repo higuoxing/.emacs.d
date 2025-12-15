@@ -9,3 +9,8 @@ bootstrap-borg:
 	@git submodule--helper clone --name borg --path $(DRONES_DIR)/borg --url git@github.com:emacscollective/borg.git
 	@cd $(DRONES_DIR)/borg; git symbolic-ref HEAD refs/heads/main
 	@cd $(DRONES_DIR)/borg; git reset --hard HEAD
+
+TREESIT_LANGUAGES := c cpp python rust
+
+build-treesit-languages:
+	@cd ~/.emacs.d/tree-sitter; INSTALL_DIR=~/.emacs.d/tree-sitter JOBS=$(shell nproc) ./batch.sh $(TREESIT_LANGUAGES)
