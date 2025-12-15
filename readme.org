@@ -1,0 +1,12 @@
+#+TITLE: ~/.emacs.d
+#+AUTHOR: Xing Guo <higuoxing@gmail.com>
+
+** Build
+
+#+BEGIN_SRC bash
+  git clone git@github.com:higuoxing/.emacs.d.git
+  cd .emacs.d
+  git submodule update --init --recursive
+  make bootstrap -j$(nproc)
+  make build-treesit-languages
+#+END_SRC
