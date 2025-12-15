@@ -10,7 +10,7 @@ bootstrap-borg:
 	@cd $(DRONES_DIR)/borg; git symbolic-ref HEAD refs/heads/main
 	@cd $(DRONES_DIR)/borg; git reset --hard HEAD
 
-TREESIT_LANGUAGES := c cpp python rust
+TREESIT_LANGUAGES := c cpp python rust markdown markdown-inline
 
 build-treesit-languages:
 	@cd ~/.emacs.d/tree-sitter; INSTALL_DIR=~/.emacs.d/tree-sitter JOBS=$(shell nproc) ./batch.sh $(TREESIT_LANGUAGES)
