@@ -31,10 +31,10 @@
   :functions (consult-xref consult-register-window)
   ;; Replace bindings. Lazily loaded by `use-package'.
   :bind
-  (("C-s" . consult-line)
-   ("C-x C-b" . consult-buffer)
+  (("C-x C-b" . consult-buffer)
    ("C-x p g" . consult-ripgrep)
-   ("M-g g" . consult-goto-line))
+   ("M-g g" . consult-goto-line)
+   ("M-g i" . consult-imenu))
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
