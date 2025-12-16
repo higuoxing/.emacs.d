@@ -1,9 +1,9 @@
-;;; init-flycheck.el --- initialize flycheck         -*- lexical-binding: t; -*-
+;;; init-flymake.el --- initialize flymake.          -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp
+;; Keywords: flymake
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,15 +24,5 @@
 
 ;;; Code:
 
-(use-package flycheck
-  :hook (after-init . global-flycheck-mode)
-  :config
-  ;; Check syntax on save.
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  ;; Specify emacs-lisp scripts load path for flycheck.
-  (setq flycheck-emacs-lisp-load-path 'inherit)
-  ;; Disable flake8 as there're many errors.
-  (setq-default flycheck-disabled-checkers '(python-flake8)))
-
-(provide 'init-flycheck)
-;;; init-flycheck.el ends here
+(provide 'init-flymake)
+;;; init-flymake.el ends here

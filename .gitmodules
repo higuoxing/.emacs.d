@@ -38,12 +38,6 @@
 [submodule "f"]
 	path = lib/f
 	url = https://github.com/rejeep/f.el
-[submodule "flycheck"]
-	path = lib/flycheck
-	url = git@github.com:flycheck/flycheck.git
-[submodule "flycheck-rust"]
-	path = lib/flycheck-rust
-	url = git@github.com:flycheck/flycheck-rust.git
 [submodule "hydra"]
 	path = lib/hydra
 	url = git@github.com:abo-abo/hydra.git

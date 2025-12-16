@@ -90,6 +90,9 @@
   :config (or (server-running-p) (server-mode)))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; Specify elisp load path for flymake.
+(add-to-list 'elisp-flymake-byte-compile-load-path
+	     (expand-file-name "lisp" user-emacs-directory))
 
 (progn
   (message "Loading early birds...done (%.3fs)"
@@ -134,8 +137,8 @@
 (require 'init-corfu)
 ;; Language server support
 (require 'init-eglot)
-(require 'init-flycheck)
 (require 'init-xref)
+(require 'init-flymake)
 
 ;;; Languages
 (require 'init-lang-lisp)
