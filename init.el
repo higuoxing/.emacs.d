@@ -47,8 +47,8 @@
   (global-display-line-numbers-mode t)
 
   ;;; Experience
-  ;; Keep the visible bell but disable sound.
-  (setq visible-bell t)
+  ;; Disable the visible bell but disable sound.
+  (setq visible-bell nil)
   ;; Stop creating backup~ files.
   (setq make-backup-files nil)
   ;; Stop creating #autosave# files.
