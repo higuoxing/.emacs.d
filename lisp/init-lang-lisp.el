@@ -24,9 +24,23 @@
 
 ;;; Code:
 
-(use-package paredit
-  ;; Enable this in elisp, ielm
-  :hook emacs-lisp-mode inferior-emacs-lisp-mode)
+(use-package emacs-lisp-mode
+  :defer t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  ;; FIXME: Enable flymake automatically is vulnerable.
+  ;; https://eshelyaron.com/posts/2024-11-27-emacs-aritrary-code-execution-and-how-to-avoid-it.html
+  ;; For future reference.
+  ;; Specify elisp load path for flymake.
+  ;; (add-to-list 'elisp-flymake-byte-compile-load-path
+  ;; 	     (expand-file-name "lisp" user-emacs-directory))
+  ;; (add-hook 'emacs-lisp-mode-hook #'flymake-mode)
+  )
+
+(use-package ielm
+  :defer t
+  :init
+  (add-hook 'inferior-emacs-lisp-mode-hook #'paredit-mode))
 
 (provide 'init-lang-lisp)
 ;;; init-lang-lisp.el ends here
