@@ -3,6 +3,8 @@ CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 
 INIT_FILES := $(CURRENT_DIR)/lisp/*.el
 
+bootstrap-all: bootstrap build-treesit-languages
+
 -include $(DRONES_DIR)/borg/borg.mk
 
 bootstrap-borg:
