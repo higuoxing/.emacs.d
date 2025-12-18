@@ -1,9 +1,9 @@
-;;; init-eglot.el --- initialize eglot               -*- lexical-binding: t; -*-
+;;; init-lang-go.el --- initialization for Go language  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025  Xing Guo
 
 ;; Author: Xing Guo <higuoxing@gmail.com>
-;; Keywords: lisp
+;; Keywords: go
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,17 +24,9 @@
 
 ;;; Code:
 
-(use-package eglot
-  :functions (eglot-rename)
+(use-package go-ts-mode
   :defer t
-  :hook ((c-ts-mode . eglot-ensure)
-	 (c++-ts-mode . eglot-ensure)
-	 (rust-ts-mode . eglot-ensure)
-	 (python-ts-mode . eglot-ensure)
-	 (go-ts-mode . eglot-ensure))
-  :config
-  (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server")))
-  (keymap-global-set "C-x g r r" #'eglot-rename))
+  :mode ("\\.go\\'" . go-ts-mode))
 
-(provide 'init-eglot)
-;;; init-eglot.el ends here
+(provide 'init-lang-go)
+;;; init-lang-go.el ends here
