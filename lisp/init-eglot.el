@@ -27,13 +27,7 @@
 (use-package eglot
   :functions (eglot-rename)
   :defer t
-  :hook ((c-ts-mode . eglot-ensure)
-	 (c++-ts-mode . eglot-ensure)
-	 (rust-ts-mode . eglot-ensure)
-	 (python-ts-mode . eglot-ensure)
-	 (go-ts-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server")))
   (keymap-global-set "C-x g r r" #'eglot-rename))
 
 (provide 'init-eglot)

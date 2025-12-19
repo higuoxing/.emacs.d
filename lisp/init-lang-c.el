@@ -26,8 +26,14 @@
 
 ;; Use treesit mode for C/C++.
 (use-package c-ts-mode
+  :defer t
+  :init
+  (add-hook 'c-ts-mode-hook 'eglot-ensure)
   :hook (c-mode . c-ts-mode))
 (use-package c++-ts-mode
+  :defer t
+  :init
+  (add-hook 'c++-ts-mode-hook 'eglot-ensure)
   :hook (c++-mode . c++-ts-mode))
 
 (provide 'init-lang-c)

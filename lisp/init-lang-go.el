@@ -24,9 +24,15 @@
 
 ;;; Code:
 
+(with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+		 '(go-ts-mode . ("~/go/bin/gopls"))))
+
 (use-package go-ts-mode
   :defer t
-  :mode ("\\.go\\'" . go-ts-mode))
+  :mode ("\\.go\\'" . go-ts-mode)
+  :init
+  (add-hook 'go-ts-mode-hook 'eglot-ensure))
 
 (provide 'init-lang-go)
 ;;; init-lang-go.el ends here

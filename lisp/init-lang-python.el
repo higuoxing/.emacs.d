@@ -24,8 +24,13 @@
 
 ;;; Code:
 
-;; Use treesit mode for Python
+(with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server"))))
+
 (use-package python-ts-mode
+  :defer t
+  :init
+  (add-hook 'python-ts-mode-hook 'eglot-ensure)
   :hook (python-mode . python-ts-mode))
 
 (provide 'init-lang-python)

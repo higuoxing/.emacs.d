@@ -28,6 +28,7 @@
   :mode ("\\.rs\\'")
   :init
   (setq rust-mode-treesitter-derive t)
+  (add-hook 'rust-mode-hook 'eglot-ensure)
   :config
   (setq rust-format-on-save t)
   (prettify-symbols-mode))
