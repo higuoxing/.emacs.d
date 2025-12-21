@@ -27,7 +27,8 @@
 (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server"))))
 
-(use-package python-ts-mode
+;; python-ts-mode is defined in python.el
+(use-package python
   :defer t
   :init
   (add-hook 'python-ts-mode-hook 'eglot-ensure)

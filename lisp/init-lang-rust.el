@@ -33,10 +33,5 @@
   (setq rust-format-on-save t)
   (prettify-symbols-mode))
 
-(use-package flycheck-rust
-  ;; There're some variables to set for flycheck before checking
-  ;; projects.  I use flycheck-rust to set them up.
-  :hook ((rust-ts-mode flycheck-mode) . flycheck-rust-setup))
-
 (provide 'init-lang-rust)
 ;;; init-lang-rust.el ends here

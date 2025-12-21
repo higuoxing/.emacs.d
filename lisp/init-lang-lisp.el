@@ -24,7 +24,7 @@
 
 ;;; Code:
 
-(use-package emacs-lisp-mode
+(use-package elisp-mode
   :defer t
   :init
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
