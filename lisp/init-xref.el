@@ -24,9 +24,10 @@
 
 ;;; Code:
 
-(keymap-global-set "C-x g g g" #'xref-find-definitions)
-(keymap-global-set "C-x g g r" #'xref-find-references)
-(keymap-global-set "C-x g g b" #'xref-go-back)
+(with-eval-after-load 'xref
+  (keymap-global-set "C-x g g g" #'xref-find-definitions)
+  (keymap-global-set "C-x g g r" #'xref-find-references)
+  (keymap-global-set "C-x g g b" #'xref-go-back))
 
 (provide 'init-xref)
 ;;; init-xref.el ends here

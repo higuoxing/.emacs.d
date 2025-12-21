@@ -28,6 +28,7 @@
 
 ;; See more in https://github.com/minad/consult
 (use-package consult
+  :straight t
   :functions (consult-xref consult-register-window)
   ;; Replace bindings. Lazily loaded by `use-package'.
   :bind

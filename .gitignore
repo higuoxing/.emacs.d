@@ -7,6 +7,7 @@
 /eshell/
 /epkgs/
 /transient/
+/straight/
 *.elc
 recentf
 ielm-history.eld

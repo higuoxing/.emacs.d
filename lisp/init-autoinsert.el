@@ -29,6 +29,7 @@
   (replace-regexp-in-string "\n" "" str))
 
 (use-package autoinsert
+  :straight t
   :defer t
   :init
   (setq user-full-name

@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package markdown-ts-mode
+  :straight t
   :mode ("\\.md\\'" . markdown-ts-mode)
   :defer t)
 

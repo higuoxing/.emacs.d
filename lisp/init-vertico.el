@@ -25,7 +25,7 @@
 ;;; Code:
 
 (use-package vertico
-  :functions (vertico-mode)
+  :straight t
   :init
   (vertico-mode)
   :custom

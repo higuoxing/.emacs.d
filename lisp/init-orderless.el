@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package orderless
+  :straight t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-override '((file (styles partial-completion))))

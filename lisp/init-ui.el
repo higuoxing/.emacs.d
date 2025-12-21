@@ -28,6 +28,7 @@
 ;; To install run:
 ;; (nerd-icons-install-fonts)
 (use-package doom-modeline
+  :straight t
   :hook (after-init . doom-modeline-mode)
   :config
   (setq doom-modeline-project-detection 'project))

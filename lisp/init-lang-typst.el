@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package typst-ts-mode
+  :straight t
   :mode ("\\.typ\\'"))
 
 (provide 'init-lang-typst)

@@ -25,11 +25,6 @@
 ;; Load whatever looks newer.
 (setq load-prefer-newer t)
 
-;; Load borg package manager.
-(add-to-list 'load-path (expand-file-name "lib/borg" user-emacs-directory))
-(require 'borg)
-(borg-initialize)
-
 ;; Disable loading old package.el make straight.el/elpaca load faster.
 (setq package-enable-at-startup nil)
 
@@ -50,11 +45,6 @@
 ;; Don't automatically resize the frame during startup.
 ;; Significantly improve the performance.
 (setq frame-inhibit-implied-resize t)
-
-(with-eval-after-load 'package
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("gnu"   . "https://elpa.gnu.org/packages/")
-                           ("org"   . "https://orgmode.org/elpa/"))))
 
 (provide 'early-init)
 ;;; early-init.el ends here

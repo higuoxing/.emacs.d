@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package rust-mode
+  :straight t
   :mode ("\\.rs\\'")
   :init
   (setq rust-mode-treesitter-derive t)

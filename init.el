@@ -24,10 +24,6 @@
 
 ;;; Code:
 
-
-;; Used for debugging start up duration.
-;; (borg-report-load-duration)
-
 ;;; Early birds
 (progn
   ;;; UI
@@ -78,22 +74,36 @@
   "Translate the sub-directory D of $HOME/.emacs.d into the full path."
   (expand-file-name d my/emacs-directory))
 
+;; Initialize straight.el
+;; See: https://github.com/radian-software/straight.el?tab=readme-ov-file#getting-started
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
 (eval-and-compile
   ;; Allows imenu to show entries for use-package declarations.
   (setopt use-package-enable-imenu-support t)
   ;; Make use-package print messages when loading packages.
-  (setopt use-package-verbose t)
-  (require 'use-package))
+  (setopt use-package-verbose t))
 
 (use-package server
-  :functions (server-running-p)
   :config (or (server-running-p) (server-mode)))
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-(progn
-  (message "Loading early birds...done (%.3fs)"
-           (float-time (time-subtract (current-time) before-init-time))))
+(message "Loading early birds...done (%.3fs)"
+         (float-time (time-subtract (current-time) before-init-time)))
 
 ;;; Long tail
 (use-package paren
@@ -101,6 +111,7 @@
   :config (show-paren-mode))
 
 (use-package which-key
+  :straight t
   :hook (after-init . which-key-mode)
   ;; Don't display which-key-mode in modeline.
   :diminish which-key-mode
@@ -119,17 +130,24 @@
 (use-package eldoc
   :config (global-eldoc-mode))
 
+;;; Load other el files.
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 ;;; UI
 (require 'init-ui)
 
 ;;; Development experience
-(require 'init-emacs)
-(require 'init-autoinsert)
+(use-package init-emacs)
+(use-package init-autoinsert)
 (require 'init-vertico)
 (require 'init-orderless)
 (require 'init-consult)
-(require 'init-magit)
-(require 'init-editorconfig)
+(use-package magit
+  :straight t
+  :defer t)
+(use-package editorconfig
+  :straight t
+  :hook (prog-mode . editorconfig-mode))
 ;; Code completion
 (require 'init-corfu)
 ;; Language server support
@@ -144,9 +162,6 @@
 (require 'init-lang-python)
 (require 'init-lang-markdown)
 (require 'init-lang-typst)
-
-;; Used for debugging start up duration.
-;; (borg-report-after-init-duration)
 
 (provide 'init)
 ;;; init.el ends here
