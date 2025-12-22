@@ -25,7 +25,7 @@
 ;;; Code:
 
 (with-eval-after-load 'eglot
-    (add-to-list 'eglot-server-programs '(python-ts-mode . ("ty" "server"))))
+    (add-to-list 'eglot-server-programs '(python-ts-mode . ("python" "-m"  "ty" "server"))))
 
 ;; python-ts-mode is defined in python.el
 (use-package python
