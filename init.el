@@ -43,8 +43,6 @@
   (global-display-line-numbers-mode t)
 
   ;;; Experience
-  ;; Disable the visible bell but disable sound.
-  (setq visible-bell nil)
   ;; Stop creating backup~ files.
   (setq make-backup-files nil)
   ;; Stop creating #autosave# files.
@@ -104,6 +102,12 @@
 
 (message "Loading early birds...done (%.3fs)"
          (float-time (time-subtract (current-time) before-init-time)))
+
+;; Display bell in the echo area.
+(use-package echo-bell
+  :straight t
+  :config
+  (echo-bell-mode))
 
 ;;; Long tail
 (use-package paren
