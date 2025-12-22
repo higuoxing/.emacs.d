@@ -143,9 +143,16 @@
 ;;; Development experience
 (use-package init-emacs)
 (use-package init-autoinsert)
-(require 'init-vertico)
-(require 'init-orderless)
-(require 'init-consult)
+(use-package init-vertico)
+(use-package init-orderless)
+(use-package init-consult)
+(use-package marginalia
+  :straight t
+  :bind
+  (:map minibuffer-local-map
+	("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
 (use-package magit
   :straight t
   :defer t)
@@ -153,19 +160,19 @@
   :straight t
   :hook (prog-mode . editorconfig-mode))
 ;; Code completion
-(require 'init-corfu)
+(use-package init-corfu)
 ;; Language server support
-(require 'init-eglot)
-(require 'init-xref)
+(use-package init-eglot)
+(use-package init-xref)
 
 ;;; Languages
-(require 'init-lang-lisp)
-(require 'init-lang-c)
-(require 'init-lang-go)
-(require 'init-lang-rust)
-(require 'init-lang-python)
-(require 'init-lang-markdown)
-(require 'init-lang-typst)
+(use-package init-lang-lisp)
+(use-package init-lang-c)
+(use-package init-lang-go)
+(use-package init-lang-rust)
+(use-package init-lang-python)
+(use-package init-lang-markdown)
+(use-package init-lang-typst)
 
 (provide 'init)
 ;;; init.el ends here

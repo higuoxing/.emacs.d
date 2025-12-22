@@ -24,12 +24,9 @@
 
 ;;; Code:
 
-(require 'xref)
-
 ;; See more in https://github.com/minad/consult
 (use-package consult
   :straight t
-  :functions (consult-xref consult-register-window)
   ;; Replace bindings. Lazily loaded by `use-package'.
   :bind
   (("C-x C-b" . consult-buffer)
@@ -51,6 +48,7 @@
 
   (setq register-preview-delay 0.5)
   ;; Use consult-xref for navigating and preview.
+  (require 'xref)
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
 
