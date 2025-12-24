@@ -157,7 +157,6 @@
 (use-package init-corfu)
 ;; Language server support
 (use-package init-eglot)
-(use-package init-xref)
 
 ;;; Languages
 (use-package init-lang-lisp)
