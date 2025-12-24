@@ -33,5 +33,9 @@
   :config
   (setq doom-modeline-project-detection 'project))
 
+;; If Emacs is running in terminal, load modus-vivendi-tritanopia theme.
+(unless (display-graphic-p)
+  (load-theme 'modus-vivendi-tritanopia))
+
 (provide 'init-ui)
 ;;; init-ui.el ends here
