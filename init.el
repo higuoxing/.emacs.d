@@ -103,12 +103,6 @@
 (message "Loading early birds...done (%.3fs)"
          (float-time (time-subtract (current-time) before-init-time)))
 
-;; Display bell in the echo area.
-(use-package echo-bell
-  :straight t
-  :config
-  (echo-bell-mode))
-
 ;;; Long tail
 (use-package paren
   :defer t

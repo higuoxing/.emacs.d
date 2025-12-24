@@ -37,5 +37,27 @@
 (unless (display-graphic-p)
   (load-theme 'modus-vivendi-tritanopia))
 
+;; Display bell in the echo area.
+(use-package echo-bell
+  :straight t
+  :config
+  ;; The alignment seems incorrect under MacOS terminal, fix it with advice-add.
+  (defun my/echo-bell-update ()
+    "Customized `echo-bell-update' for `echo-bell-mode'."
+    (setq echo-bell-propertized-string
+          (propertize
+           (concat (propertize
+                    " "			; Space char
+                    'display `(space :align-to (- right ,(string-width echo-bell-string) 1)))
+                   echo-bell-string)
+           'face `(:background ,(if (boundp 'echo-bell-background) ; For first use only.
+                                    echo-bell-background
+                                  "Aquamarine"))))
+    (setq echo-bell-cached-string  echo-bell-string))
+  (advice-add 'echo-bell-update :override #'my/echo-bell-update)
+  ;; Set echo-bell-cached-string to nil to force update.
+  (setq echo-bell-cached-string nil)
+  (echo-bell-mode))
+
 (provide 'init-ui)
 ;;; init-ui.el ends here
