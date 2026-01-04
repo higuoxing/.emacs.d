@@ -166,6 +166,15 @@
 (use-package init-lang-python)
 (use-package init-lang-markdown)
 (use-package init-lang-typst)
+(use-package yaml-ts-mode
+  :defer t
+  :mode
+  (("\\.yml\\'" . yaml-ts-mode)
+   ("\\.yaml\\'" . yaml-ts-mode)))
+(use-package dockerfile-ts-mode
+  :defer t
+  :mode
+  ("\\Dockerfile\\'" . dockerfile-ts-mode))
 
 (provide 'init)
 ;;; init.el ends here

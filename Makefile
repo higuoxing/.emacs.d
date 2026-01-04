@@ -1,7 +1,7 @@
 EMACS ?= emacs
 SHELL ?= bash
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
-TREESIT_LANGUAGES := c cpp go python rust markdown markdown-inline
+TREESIT_LANGUAGES := c cpp go python rust dockerfile markdown markdown-inline yaml
 
 .PHONY: bootstrap
 bootstrap: build build-treesit-languages
