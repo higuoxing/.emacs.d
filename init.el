@@ -166,6 +166,10 @@
 (use-package init-lang-python)
 (use-package init-lang-markdown)
 (use-package init-lang-typst)
+(use-package verilog-mode
+  :straight t
+  :defer t
+  :mode ("\\.v\\'" . verilog-mode))
 (use-package yaml-ts-mode
   :defer t
   :mode
@@ -174,7 +178,7 @@
 (use-package dockerfile-ts-mode
   :defer t
   :mode
-  ("\\Dockerfile\\'" . dockerfile-ts-mode))
+  ("Dockerfile\\'" . dockerfile-ts-mode))
 
 (provide 'init)
 ;;; init.el ends here

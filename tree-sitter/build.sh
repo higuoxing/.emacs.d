@@ -163,7 +163,7 @@ case "${lang}" in
     "vala")
         org="vala-lang"
         ;;
-    "verilog")
+    "systemverilog")
         org="gmlarumbe"
         ;;
     "vhdl")

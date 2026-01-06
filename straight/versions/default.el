@@ -16,6 +16,5 @@
  ("transient" . "72c099d202b59e089a6eabf8512714c997252fdf")
  ("use-package" . "039b721a4d24b93adc3170e39a6cba7a8200ed43")
  ("verilog-mode" . "cdbfae99e8efb6058df091e8045431baa8e43219")
- ("verilog-ts-mode" . "6f486451b3bb8f6ebba88dc3109360a79b2c201f")
  ("with-editor" . "902b4d572af2c2f36060da01e3c33d194cdec32b"))
 :epsilon
