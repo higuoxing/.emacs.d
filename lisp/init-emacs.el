@@ -50,5 +50,23 @@
   (minibuffer-prompt-properties
    '(read-only t cursor-intangible-mode t face minibuffer-prompt)))
 
+;; Resize the whole frame, and not only a window.
+(defun my/zoom-frame (&optional delta)
+  "Adjust the font size of the current frame by DELTA (in 1/10pt)."
+  (interactive)
+  (let* ((delta (or delta 10))
+	 (old-height (face-attribute 'default :height))
+         (new-height (+ old-height delta)))
+    (set-face-attribute 'default (selected-frame) :height new-height)
+    (message "Font size set to: %dpt" (/ new-height 10))))
+
+(defun my/zoom-frame-out ()
+  "Decrease frame font size by 1pt."
+  (interactive)
+  (my/zoom-frame -10))
+
+(global-set-key (kbd "C-x C-=") 'my/zoom-frame)
+(global-set-key (kbd "C-x C--") 'my/zoom-frame-out)
+
 (provide 'init-emacs)
 ;;; init-emacs.el ends here
