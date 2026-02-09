@@ -25,6 +25,7 @@
 ;;; Code:
 
 (use-package paredit
+  :defer t
   :straight t)
 
 (use-package elisp-mode

@@ -156,7 +156,8 @@
 ;; Code completion
 (use-package init-corfu)
 ;; Language server support
-(use-package eglot)
+(use-package eglot
+  :defer t)
 
 ;;; Languages
 (use-package init-lang-lisp)
