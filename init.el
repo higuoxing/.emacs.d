@@ -167,10 +167,7 @@
 (use-package init-lang-python)
 (use-package init-lang-markdown)
 (use-package init-lang-typst)
-(use-package verilog-mode
-  :straight t
-  :defer t
-  :mode ("\\.v\\'" . verilog-mode))
+(use-package init-lang-verilog)
 (use-package yaml-ts-mode
   :defer t
   :mode
