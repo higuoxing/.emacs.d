@@ -20,8 +20,8 @@
 
 ;;; Commentary:
 
-;; Indentation uses spaces (not tabs) and 2-space steps.  For LSP and
-;; formatting, install Verible on macOS via Homebrew from the Chips
+;; Indentation uses spaces (not tabs) and 2-space steps.  For LSP,
+;; install Verible on macOS via Homebrew from the Chips
 ;; Alliance tap: `brew tap chipsalliance/verible' then `brew install
 ;; verible'.  See <https://github.com/chipsalliance/homebrew-verible>.
 
@@ -45,35 +45,10 @@
   (add-to-list 'eglot-server-programs
                '(verilog-mode . ("verible-verilog-ls"))))
 
-(defun my/verilog--format-with-verible-cli ()
-  "Format the buffer with Verible's `verible-verilog-format' executable.
-
-This is the same Verible toolchain as `verible-verilog-ls'; we use the
-CLI because Eglot does not reliably expose Verible's LSP formatter.
-
-`call-process-region': fourth arg DELETE must be t or the region is
-duplicated; fifth arg must be `(t nil)' so stderr is not mixed into the
-buffer.  After replace, restore point via offset from `point-min'."
-  (when-let ((cmd (executable-find "verible-verilog-format")))
-    (save-restriction
-      (widen)
-      (let ((off (- (point) (point-min))))
-        (call-process-region (point-min) (point-max) cmd
-                             t '(t nil) nil "-")
-        (goto-char (+ (point-min)
-                      (min off (max 0 (- (point-max) (point-min))))))))))
-
-(defun my/verilog-format-before-save ()
-  "On save, format with Verible via `my/verilog--format-with-verible-cli'.
-
-If `verible-verilog-format' is not on `exec-path', do nothing."
-  (my/verilog--format-with-verible-cli))
-
 (defun my/verilog-mode-setup ()
   "Buffer-local defaults for Verilog / SystemVerilog."
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2)
-  (add-hook 'before-save-hook #'my/verilog-format-before-save nil t)
   (if (executable-find "verible-verilog-ls")
       (eglot-ensure)
     (my/verilog-maybe-hint-missing-verible)))
