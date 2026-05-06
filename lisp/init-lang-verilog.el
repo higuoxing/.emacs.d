@@ -27,31 +27,32 @@
 
 ;;; Code:
 
-(defvar my/verilog--verible-hint-shown nil
-  "Non-nil after we showed the missing-Verible hint once this session.")
+(defvar my/verilog--slang-hint-shown nil
+  "Non-nil after we showed the missing-slang hint once this session.")
 
-(defun my/verilog-maybe-hint-missing-verible ()
-  "If Verible is not installed, show a one-time hint in the echo area."
-  (when (and (not (executable-find "verible-verilog-ls"))
-             (not my/verilog--verible-hint-shown))
-    (setq my/verilog--verible-hint-shown t)
-    (message
-     (concat
-      "Verilog: `verible-verilog-ls' not found — install: "
-      "`brew tap chipsalliance/verible' then `brew install verible' "
-      "(https://github.com/chipsalliance/homebrew-verible)"))))
+(defvar my/slang-server
+  (expand-file-name "dist/bin/slang-server" user-emacs-directory))
 
+(defun my/verilog-maybe-hint-missing-slang ()
+  "If slang-server is not installed, show a one-time hint."
+  (when (and (not (file-exists-p my/slang-server-path))
+             (not my/verilog--slang-hint-shown))
+    (setq my/verilog--slang-hint-shown t)
+    (message "slang-server not found. Run 'make bootstrap' in .emacs.d")))
+
+;; Configure Eglot to use slang-server for verilog-mode
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '(verilog-mode . ("verible-verilog-ls"))))
+               `(verilog-mode . (,my/slang-server))))
 
 (defun my/verilog-mode-setup ()
   "Buffer-local defaults for Verilog / SystemVerilog."
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2)
-  (if (executable-find "verible-verilog-ls")
+  ;; Check for slang-server instead of verible
+  (if (executable-find "slang-server")
       (eglot-ensure)
-    (my/verilog-maybe-hint-missing-verible)))
+    (my/verilog-maybe-hint-missing-slang)))
 
 (use-package verilog-mode
   :straight t
@@ -62,8 +63,7 @@
          ("\\.vh\\'" . verilog-mode))
   :hook (verilog-mode . my/verilog-mode-setup)
   :config
-  ;; Two-space indentation is widely used and avoids the wide tab alignment
-  ;; that makes `parameter' lists in #( ) blocks look misaligned.
+  ;; Indentation settings
   (setq verilog-indent-level 2
         verilog-indent-level-module 2
         verilog-indent-level-declaration 2
@@ -71,8 +71,6 @@
         verilog-case-indent 2
         verilog-cexp-indent 2
         verilog-indent-level-directive 1
-        ;; If you prefer continuation lines under `always @(' to align with the
-        ;; opening paren, set this back to t (default).
         verilog-indent-lists nil))
 
 (provide 'init-lang-verilog)
