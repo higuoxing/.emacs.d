@@ -35,12 +35,12 @@
 
 (defun my/verilog-maybe-hint-missing-slang ()
   "If slang-server is not installed, show a one-time hint."
-  (when (and (not (file-exists-p my/slang-server-path))
+  (when (and (not (file-exists-p my/slang-server))
              (not my/verilog--slang-hint-shown))
     (setq my/verilog--slang-hint-shown t)
     (message "slang-server not found. Run 'make bootstrap' in .emacs.d")))
 
-;; Configure Eglot to use slang-server for verilog-mode
+;; Configure Eglot to use the explicit slang-server path for verilog-mode
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
                `(verilog-mode . (,my/slang-server))))
@@ -49,8 +49,7 @@
   "Buffer-local defaults for Verilog / SystemVerilog."
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2)
-  ;; Check for slang-server instead of verible
-  (if (executable-find "slang-server")
+  (if (file-exists-p my/slang-server)
       (eglot-ensure)
     (my/verilog-maybe-hint-missing-slang)))
 
