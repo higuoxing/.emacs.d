@@ -59,5 +59,45 @@
   (setq echo-bell-cached-string nil)
   (echo-bell-mode))
 
+;; Scale fonts according to physical dpi detection.
+(defun my/apply-font-size-by-resolution (&optional frame)
+  "Adjust font height based on monitor width. Safety checked for nil values."
+  (let* ((f (or frame (selected-frame)))
+         (monitor-attrs (frame-monitor-attributes f))
+         (geometry (assoc 'geometry monitor-attrs))
+         ;; Use 0 as fallback if width is nil to prevent the 'number-or-marker-p' error
+         (width (or (nth 3 geometry) 0))
+         ;; 140 (14pt) for 4K/Ultrawide, 110 (11pt) for standard
+         (font-size (if (>= width 2500) 160 150)))
+    ;; Only apply if we actually got a valid width > 0
+    (when (> width 0)
+      (set-face-attribute 'default f :height font-size))))
+;; Apply to every new frame created
+(add-hook 'after-make-frame-functions #'my/apply-font-size-by-resolution)
+;; Re-check when Emacs gains focus (useful when dragging between monitors)
+(add-hook 'focus-in-hook #'my/apply-font-size-by-resolution)
+
+;; Scale frame according to physical dpi detection.
+(defun my/set-initial-frame-size (&optional frame)
+  "Set the frame width and height based on monitor resolution."
+  (let* ((f (or frame (selected-frame)))
+         (monitor-attrs (frame-monitor-attributes f))
+         (geometry (assoc 'geometry monitor-attrs))
+         (width (or (nth 3 geometry) 0)))
+    (when (> width 0)
+      (if (>= width 2500)
+          ;; Settings for 4K / Large Displays
+          (progn
+            (set-frame-width f 120)  ; 120 columns wide
+            (set-frame-height f 50)) ; 50 rows tall
+        ;; Settings for Standard Displays
+        (progn
+          (set-frame-width f 100)
+          (set-frame-height f 40))))))
+;; Hook it into frame creation
+(add-hook 'after-make-frame-functions #'my/set-initial-frame-size)
+;; Apply to the very first frame
+(add-hook 'window-setup-hook (lambda () (my/set-initial-frame-size)))
+
 (provide 'init-ui)
 ;;; init-ui.el ends here
