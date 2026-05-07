@@ -6,12 +6,16 @@ INSTALL_PREFIX := $(CURRENT_DIR)dist
 TREESIT_LANGUAGES := c cpp go python rust dockerfile markdown markdown-inline yaml
 
 .PHONY: bootstrap
-bootstrap: build build-treesit-languages
+bootstrap: build-init build-treesit-languages
 	$(MAKE) -C deps bootstrap
 
-.PHONY: build
-build:
+.PHONY: build build-init build-deps
+build: build-init build-deps
+
+build-init:
 	$(EMACS) --batch -l init.el
+
+build-deps:
 	$(MAKE) -C deps build
 
 .PHONY: build-treesit-languages

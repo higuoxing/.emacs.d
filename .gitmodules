@@ -1,6 +1,3 @@
 [submodule "deps/verilog/slang-server"]
 	path = deps/verilog/slang-server
 	url = https://github.com/hudson-trading/slang-server.git
-[submodule "deps/verilog/slang"]
-	path = deps/verilog/slang
-	url = https://github.com/MikePopoloski/slang.git
