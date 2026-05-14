@@ -52,5 +52,26 @@
   (setq xref-show-xrefs-function #'consult-xref
         xref-show-definitions-function #'consult-xref))
 
+;; Compat shim for Emacs < 31: completion-table-with-metadata was added later.
+(unless (fboundp 'completion-table-with-metadata)
+  (defun completion-table-with-metadata (table metadata)
+    (lambda (string pred action)
+      (if (eq action 'metadata)
+          `(metadata ,@metadata ,@(cdr (completion-metadata string table pred)))
+        (complete-with-action action table string pred)))))
+
+(use-package embark
+  :straight t
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command))
+
+(use-package embark-consult
+  :straight t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
 (provide 'init-consult)
 ;;; init-consult.el ends here
