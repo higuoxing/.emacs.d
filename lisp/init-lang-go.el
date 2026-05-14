@@ -25,8 +25,8 @@
 ;;; Code:
 
 (with-eval-after-load 'eglot
-    (add-to-list 'eglot-server-programs
-		 '(go-ts-mode . ("~/go/bin/gopls"))))
+  (add-to-list 'eglot-server-programs
+               `(go-ts-mode . (,(executable-find "gopls")))))
 
 (use-package go-ts-mode
   :defer t
