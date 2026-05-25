@@ -64,7 +64,10 @@
   (setq mouse-wheel-progressive-speed nil)
   ;; Horizontal Scroll
   (setq hscroll-step 1)
-  (setq hscroll-margin 10))
+  (setq hscroll-margin 10)
+  ;; Error reporting
+  (setq native-comp-async-report-warnings-errors 'silent)
+  (setq warning-minimum-level :error))
 
 ;; Globals
 (defconst my/emacs-directory (concat (getenv "HOME") "/.emacs.d/"))
@@ -177,6 +180,15 @@
   :defer t
   :mode
   ("Dockerfile\\'" . dockerfile-ts-mode))
+
+(use-package proof-general
+  :straight t
+  :defer t
+  :init
+  (setq proof-three-window-mode-policy 'horizontal)
+
+  :config
+  (setq coq-compilre-before-require t))
 
 (provide 'init)
 ;;; init.el ends here
