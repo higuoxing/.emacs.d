@@ -171,6 +171,7 @@
 (use-package init-lang-markdown)
 (use-package init-lang-typst)
 (use-package init-lang-verilog)
+(use-package init-lang-ocaml)
 (use-package yaml-ts-mode
   :defer t
   :mode
